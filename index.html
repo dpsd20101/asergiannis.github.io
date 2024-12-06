@@ -103,17 +103,83 @@
                     <h3 class="text-secondary mb-0">Portfolio</h3>
                     <h2 class="mb-5">Recent Projects</h2>
                 </div>
-                <div class="row gx-0">
-                    <!-- Web Design Carousel -->
-                    <div class="col-lg-6">
-                        <a class="portfolio-item" href="#!">
-                            <div class="caption">
-                                <div class="caption-content">
-                                    <div class="h2">Web Design</div>
-                                    <p class="mb-0">Crafting responsive and beautiful web experiences.</p>
+                <!-- Main Portfolio Slideshow -->
+                <div id="portfolioCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <!-- Web Design Slide -->
+                        <div class="carousel-item active">
+                            <div class="portfolio-item">
+                                <div class="caption text-center">
+                                    <div class="caption-content">
+                                        <div class="h2">Web Design</div>
+                                        <p class="mb-0">Crafting responsive and beautiful web experiences.</p>
+                                        <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#modalWebDesign">View Details</button>
+                                    </div>
                                 </div>
+                                <img src="assets/img/Web_Design_1.png" class="d-block w-100" alt="Web Design">
                             </div>
-                            <!-- Carousel for Web Design -->
+                        </div>
+                        <!-- App Design Slide -->
+                        <div class="carousel-item">
+                            <div class="portfolio-item">
+                                <div class="caption text-center">
+                                    <div class="caption-content">
+                                        <div class="h2">App Design</div>
+                                        <p class="mb-0">Designing intuitive and modern app interfaces.</p>
+                                        <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#modalAppDesign">View Details</button>
+                                    </div>
+                                </div>
+                                <img src="assets/img/App-Design_1.png" class="d-block w-100" alt="App Design">
+                            </div>
+                        </div>
+                        <!-- Poster Design Slide -->
+                        <div class="carousel-item">
+                            <div class="portfolio-item">
+                                <div class="caption text-center">
+                                    <div class="caption-content">
+                                        <div class="h2">Poster Design</div>
+                                        <p class="mb-0">Creating eye-catching posters for various events and brands.</p>
+                                        <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#modalPosterDesign">View Details</button>
+                                    </div>
+                                </div>
+                                <img src="assets/img/MOCKUP1.jpg" class="d-block w-100" alt="Poster Design">
+                            </div>
+                        </div>
+                        <!-- Game Design Slide -->
+                        <div class="carousel-item">
+                            <div class="portfolio-item">
+                                <div class="caption text-center">
+                                    <div class="caption-content">
+                                        <div class="h2">Game Design</div>
+                                        <p class="mb-0">Developing engaging visuals for games.</p>
+                                        <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#modalGameDesign">View Details</button>
+                                    </div>
+                                </div>
+                                <img src="assets/img/Emorph (1).jpg" class="d-block w-100" alt="Game Design">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        
+            <!-- Modals for Individual Projects -->
+            <!-- Web Design Modal -->
+            <div class="modal fade" id="modalWebDesign" tabindex="-1" aria-labelledby="modalWebDesignLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalWebDesignLabel">Web Design Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
                             <div id="carouselWebDesign" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
@@ -126,115 +192,32 @@
                                         <img src="assets/img/Web_Design_3.png" class="d-block w-100" alt="Web Design 3">
                                     </div>
                                 </div>
-                                <a class="carousel-control-prev" href="#carouselWebDesign" role="button" data-bs-slide="prev">
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselWebDesign" data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselWebDesign" role="button" data-bs-slide="next">
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselWebDesign" data-bs-slide="next">
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Next</span>
-                                </a>
+                                </button>
                             </div>
-                        </a>
-                    </div>
-        
-                    <!-- App Design Carousel -->
-                    <div class="col-lg-6">
-                        <a class="portfolio-item" href="#!">
-                            <div class="caption">
-                                <div class="caption-content">
-                                    <div class="h2">App Design</div>
-                                    <p class="mb-0">Designing intuitive and modern app interfaces.</p>
-                                </div>
-                            </div>
-                            <!-- Carousel for App Design -->
-                            <div id="carouselAppDesign" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img height="500px" src="assets/img/App-Design_1.png" class="d-block w-100" alt="App Design 1">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img height="500px" src="assets/img/App_Design_2.png" class="d-block w-100" alt="App Design 2">
-                                    </div>
-                                </div>
-                                <a class="carousel-control-prev" href="#carouselAppDesign" role="button" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselAppDesign" role="button" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </a>
-                            </div>
-                        </a>
-                    </div>
-        
-                    <!-- Poster Design Carousel -->
-                    <div class="col-lg-6">
-                        <a class="portfolio-item" href="#!">
-                            <div class="caption">
-                                <div class="caption-content">
-                                    <div class="h2">Poster Design</div>
-                                    <p class="mb-0">Creating eye-catching posters for various events and brands.</p>
-                                </div>
-                            </div>
-                            <!-- Carousel for Poster Design -->
-                            <div id="carouselPosterDesign" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img height="460px" src="assets/img/MOCKUP1.jpg" class="d-block w-100" alt="Poster Design 1">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img height="460px" src="assets/img/MOCKUP2-b.jpg" class="d-block w-100" alt="Poster Design 2">
-                                    </div>
-                                    
-                                </div>
-                                <a class="carousel-control-prev" href="#carouselPosterDesign" role="button" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselPosterDesign" role="button" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </a>
-                            </div>
-                        </a>
-                    </div>
-        
-                    <!-- Logo/Clothes Design Carousel -->
-                    <div class="col-lg-6">
-                        <a class="portfolio-item" href="#!">
-                            <div class="caption">
-                                <div class="caption-content">
-                                    <div class="h2">Game Design</div>
-                                    <p class="mb-0">Developing engaging visuals for games.</p>
-                                </div>
-                            </div>
-                            <!-- Carousel for Logo Design  -->
-                            <div id="carouselGameDesign" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="assets/img/Emorph (1).jpg" class="d-block w-100" alt="Game Design 1">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="assets/img/Emorph (2).jpg" class="d-block w-100" alt="Game Design 2">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="assets/img/Emorph (3).jpg" class="d-block w-100" alt="Game Design 3">
-                                    </div>
-                                </div>
-                                <a class="carousel-control-prev" href="#carouselGameDesign" role="button" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselGameDesign" role="button" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </a>
-                            </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
+            </div>
+        
+            <!-- Repeat Modal Structure for Other Projects (App Design, Poster Design, Game Design) -->
+            <!-- App Design Modal -->
+            <div class="modal fade" id="modalAppDesign" tabindex="-1" aria-labelledby="modalAppDesignLabel" aria-hidden="true">
+                <!-- Modal content for App Design -->
+            </div>
+            <!-- Poster Design Modal -->
+            <div class="modal fade" id="modalPosterDesign" tabindex="-1" aria-labelledby="modalPosterDesignLabel" aria-hidden="true">
+                <!-- Modal content for Poster Design -->
+            </div>
+            <!-- Game Design Modal -->
+            <div class="modal fade" id="modalGameDesign" tabindex="-1" aria-labelledby="modalGameDesignLabel" aria-hidden="true">
+                <!-- Modal content for Game Design -->
             </div>
         </section>
         
