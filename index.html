@@ -114,63 +114,90 @@
         <a class="btn btn-dark btn-xl" href="#portfolio">My Portfolio</a>
     </section>
 
-
     <style>
-        /* Ensure all carousels and images use the full width */
+        /* Enforce same dimensions for all carousels and images */
         .portfolio-item img {
-            width: 100%; /* Images span the full width */
-            height: auto; /* Maintain aspect ratio */
-            object-fit: cover; /* Ensures images fill the frame */
-        }
-    
-        /* Remove restrictions on carousel width */
-        #portfolioCarousel {
-            width: 100vw; /* Full width of the viewport */
-            margin: 0 auto; /* Center the slideshow */
-        }
-    
-        /* Remove unnecessary styling on carousel-inner */
-        .carousel-inner img {
-            object-fit: cover; /* Fill the carousel area */
-        }
-    
-        /* Adjust modal images for better viewability */
-        .modal-body img {
-            object-fit: contain;
             width: 100%;
+            /* Ensures it takes up the full width of its container */
+            height: 500px;
+            /* Fixed height for images */
+            object-fit: cover;
+            /* Maintain aspect ratio and fit within the frame */
+            border-radius: 15px;
+            /* Adds rounded corners to images */
+        }
+
+            /* Hover Effect */
+    .portfolio-item img:hover {
+        transform: scale(1.02); /* Slight enlargement */
+        filter: brightness(0.9); /* Slight darkening */
+    }
+    
+        /* Carousel Container */
+        #portfolioCarousel {
+            max-width: 85%;
+            /* Adjust to desired width (e.g., 80%, 85%) */
+            margin: 0 auto;
+            /* Center the carousel */
+            border-radius: 15px;
+            /* Adds rounded corners to the slideshow container */
+            overflow: hidden;
+            /* Ensures the content respects rounded corners */
+        }
+    
+        .carousel-inner {
+            display: block;
             height: auto;
+            /* Maintain the natural aspect ratio of content */
+            max-width: 100%;
+        }
+    
+        /* Caption Styling */
+        .portfolio-item .caption {
+            position: absolute;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent background */
+            color: white;
+            text-align: center;
+            padding-top: 20px;
+            padding-left: 20px;
+        }
+    
+        /* Button Positioning */
+        .portfolio-item .btn {
+            position: relative;
+            margin-top: 360px;
+            margin-left: 100px;
+            margin-bottom: 20px;
+        }
+    
+        /* Modal Body Image Styling */
+        .modal-body img {
+            object-fit: cover;
+            /* Constrain the image to its container */
+            width: 100%;
+            height: 300px;
+            /* Fixed height for modal images */
+            border-radius: 15px;
+            /* Rounded corners for modal images */
         }
     
         .modal-body {
             overflow-y: auto;
+            /* Enables vertical scrolling */
             max-height: 90vh;
-        }
-    
-        /* Adjust caption and button positioning */
-        .portfolio-item .caption {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-        }
-    
-        .portfolio-item .btn {
-            position: relative;
-            margin-top: 10px;
+            /* Restricts the modal to 90% of the viewport height */
         }
     </style>
     
-    <!-- Portfolio Section -->
     <section class="content-section" id="portfolio">
         <div class="container-fluid px-0">
             <div class="content-section-heading text-center">
                 <h3 class="text-secondary mb-0">Portfolio</h3>
                 <h2 class="mb-5">Recent Projects</h2>
             </div>
-            <!-- Full-Width Portfolio Slideshow -->
+            <!-- Main Portfolio Slideshow -->
             <div id="portfolioCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <!-- Web Design Slide -->
@@ -178,9 +205,9 @@
                         <div class="portfolio-item">
                             <div class="caption">
                                 <div class="h2">Web Design</div>
-                                <p class="mb-0">Crafting responsive and beautiful web experiences.</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalWebDesign">View Details</button>
+                                <p class="description"><br><br>Crafting responsive and beautiful web experiences.</p>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalWebDesign">View
+                                    Details</button>
                             </div>
                             <img src="assets/img/Web_Design_1.png" class="d-block w-100" alt="Web Design">
                         </div>
@@ -190,9 +217,9 @@
                         <div class="portfolio-item">
                             <div class="caption">
                                 <div class="h2">App Design</div>
-                                <p class="mb-0">Designing intuitive and modern app interfaces.</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalAppDesign">View Details</button>
+                                <p class="description"><br><br>Designing intuitive and modern app interfaces.</p>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAppDesign">View
+                                    Details</button>
                             </div>
                             <img src="assets/img/App-Design_1.png" class="d-block w-100" alt="App Design">
                         </div>
@@ -202,9 +229,9 @@
                         <div class="portfolio-item">
                             <div class="caption">
                                 <div class="h2">Poster Design</div>
-                                <p class="mb-0">Creating eye-catching posters for various events and brands.</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalPosterDesign">View Details</button>
+                                <p class="description"><br><br>Creating eye-catching posters for various events and brands.</p>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPosterDesign">View
+                                    Details</button>
                             </div>
                             <img src="assets/img/MOCKUP1.jpg" class="d-block w-100" alt="Poster Design">
                         </div>
@@ -214,21 +241,19 @@
                         <div class="portfolio-item">
                             <div class="caption">
                                 <div class="h2">Shoe Design</div>
-                                <p class="mb-0">Innovative and sustainable footwear concepts.</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalShoeDesign">View Details</button>
+                                <p class="description"><br><br>Innovative and sustainable footwear concepts.</p>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalShoeDesign">View
+                                    Details</button>
                             </div>
                             <img src="assets/img/Emorph (1).jpg" class="d-block w-100" alt="Shoe Design">
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel"
-                    data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel"
-                    data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
@@ -236,6 +261,7 @@
         </div>
     </section>
     
+
 
 
     <!-- Web Design Modal -->
@@ -279,15 +305,12 @@
                     <div class="mt-4">
                         <h5>About the Web Design</h5>
                         <p>
-                            This web design project focuses on crafting modern, responsive websites that deliver
-                            a
-                            seamless user experience. The designs emphasize clean layouts, intuitive navigation,
-                            and
+                            This web design project focuses on crafting modern, responsive websites that deliver a
+                            seamless user experience. The designs emphasize clean layouts, intuitive navigation, and
                             interactive elements that engage users.
                         </p>
                         <p>
-                            Developed with a mobile-first approach, these websites ensure compatibility across
-                            all
+                            Developed with a mobile-first approach, these websites ensure compatibility across all
                             devices while maintaining high performance and accessibility standards.
                         </p>
                     </div>
@@ -334,15 +357,12 @@
                     <div class="mt-4">
                         <h5>About the App Design</h5>
                         <p>
-                            This app design focuses on user-friendly interfaces with a modern aesthetic,
-                            ensuring
-                            seamless navigation and functionality. Each screen is crafted to enhance usability
-                            while
+                            This app design focuses on user-friendly interfaces with a modern aesthetic, ensuring
+                            seamless navigation and functionality. Each screen is crafted to enhance usability while
                             maintaining a visually appealing layout.
                         </p>
                         <p>
-                            Designed for both iOS and Android platforms, the app showcases innovative features
-                            and a
+                            Designed for both iOS and Android platforms, the app showcases innovative features and a
                             responsive design for optimal performance across devices.
                         </p>
                     </div>
@@ -390,8 +410,7 @@
                     <div class="mt-4">
                         <h5>About the Poster Design</h5>
                         <p>
-                            This poster collection emphasizes bold, innovative visuals for impactful marketing
-                            and
+                            This poster collection emphasizes bold, innovative visuals for impactful marketing and
                             promotions.
                             The posters utilize dynamic layouts, vibrant colors, and modern typography to grab
                             attention and communicate effectively.
@@ -450,8 +469,7 @@
                             durability for everyday wear.
                         </p>
                         <p>
-                            Engineered for both fashion and performance, these shoes are ideal for consumers
-                            seeking
+                            Engineered for both fashion and performance, these shoes are ideal for consumers seeking
                             a perfect balance of style and practicality.
                         </p>
                     </div>
