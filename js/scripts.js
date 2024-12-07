@@ -26,6 +26,12 @@ window.addEventListener('DOMContentLoaded', event => {
         })
     });
 
+
+    window.onload = function () {
+        document.body.classList.add('fade-in'); // Adds the fade-in class after the page is loaded
+    };
+    
+
     function _toggleMenuIcon() {
         const menuToggleBars = document.body.querySelector('.menu-toggle > .fa-bars');
         const menuToggleTimes = document.body.querySelector('.menu-toggle > .fa-xmark');
