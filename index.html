@@ -8,7 +8,7 @@
     <meta name="author" content="" />
     <title>Argiris Sergiannis</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="assets/img/drawing.png" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Simple line icons-->
@@ -19,6 +19,16 @@
         rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RBMXQK9JYQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-RBMXQK9JYQ');
+    </script>
+
 </head>
 
 <body id="page-top">
@@ -62,7 +72,7 @@
                     </p>
 
                     <!-- New Download Button -->
-                    <a class="btn btn-primary btn-xl" href="path-to-your-file.pdf" download="YourFileName.pdf">DOWNLOAD
+                    <a class="btn btn-primary btn-xl" href="assets/cv_new_en.pdf" download="CV-Argiris_Sergiannis_EN.pdf">DOWNLOAD
                         MY CV</a>
 
 
@@ -384,87 +394,6 @@
                 /* Fully visible */
             }
         }
-
-
-        .hidden {
-    display: none;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.more-projects {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
-    display: flex; /* Use Flexbox */
-    flex-direction: column; /* Stack items vertically */
-    justify-content: center; /* Center items vertically */
-    align-items: center; /* Center items horizontally */
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.more-projects.active {
-    opacity: 1;
-}
-
-.project-list {
-    display: flex; /* Arrange items in a row */
-    gap: 20px; /* Add space between items */
-    overflow-x: auto; /* Allow horizontal scrolling if needed */
-    padding: 20px;
-    width: 90%; /* Adjust width as needed */
-    justify-content: center; /* Center the projects within the container */
-}
-
-.project-item {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    min-width: 300px; /* Set a minimum width for each project */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.project-item img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-
-
-
-/* Style for the close button at the bottom */
-.close-button {
-    position: absolute; /* Position it relative to the container */
-    bottom: 20px; /* Place it at the bottom */
-    left: 50%; /* Center it horizontally */
-    transform: translateX(-50%); /* Ensure it is perfectly centered */
-    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
-    color: black; /* Text color */
-    font-size: 16px; /* Adjust font size */
-    border: none; /* Remove border */
-    padding: 10px 20px; /* Add padding for better appearance */
-    border-radius: 10px; /* Rounded corners */
-    cursor: pointer; /* Add pointer cursor on hover */
-    z-index: 2000; /* Ensure it stays on top */
-}
-
-.close-button:hover {
-    background-color: rgba(255, 255, 255, 1); /* Fully opaque on hover */
-    color: #007bff; /* Blue text on hover */
-}
-
-
-        /* And more button */
     </style>
 
     <section class="content-section" id="portfolio">
@@ -546,37 +475,6 @@
                 </button>
             </div>
         </div>
-
-<!-- "And More..." Button -->
-<button id="moreProjectsButton" class="btn btn-primary">And more...</button>
-
-<!-- Hidden Container for Additional Projects -->
-<div id="moreProjectsContainer" class="more-projects hidden">
-    <button id="closeButton" class="btn btn-secondary close-button">X</button>
-   <div class="more-projects">
-    <div class="project-list">
-        <div class="project-item">
-            <img src="project1.jpg" alt="Project 1">
-            <h3>Project Title 1</h3>
-            <p>Project description 1 goes here...</p>
-        </div>
-        <div class="project-item">
-            <img src="project2.jpg" alt="Project 2">
-            <h3>Project Title 2</h3>
-            <p>Project description 2 goes here...</p>
-        </div>
-        <div class="project-item">
-            <img src="project3.jpg" alt="Project 3">
-            <h3>Project Title 3</h3>
-            <p>Project description 3 goes here...</p>
-        </div>
-    </div>
-    <button class="close-button" id="closeMoreProjects">X</button>
-</div>
-
-</div>
-
-
     </section>
 
 
@@ -623,9 +521,12 @@
                     <div class="mt-4">
                         <h5>Cooking Site Assignment</h5>
                         <p>
-                            This web design project focuses on crafting modern, responsive websites that deliver a
-                            seamless user experience. The designs emphasize clean layouts, intuitive navigation, and
-                            interactive elements that engage users.
+                            Created a dynamic and responsive cooking website using HTML and CSS as the foundation. The
+                            project went beyond static design, incorporating JavaScript for interactive elements and
+                            employing SQL and PHP to retrieve and display metadata dynamically. This enabled the site to
+                            showcase recipes and user-generated content efficiently, simulating a professional web
+                            application environment and demonstrating a comprehensive understanding of backend and
+                            frontend integration.
                         </p>
                         <p>
                             Developed with a mobile-first approach, these websites ensure compatibility across all
@@ -673,11 +574,13 @@
 
                     <!-- Static Description Below Carousel -->
                     <div class="mt-4">
-                        <h5>About the App Design</h5>
+                        <h5>Android Studio Assignments</h5>
                         <p>
-                            This app design focuses on user-friendly interfaces with a modern aesthetic, ensuring
-                            seamless navigation and functionality. Each screen is crafted to enhance usability while
-                            maintaining a visually appealing layout.
+                            Worked alongside two colleagues to develop an app aimed at improving the use of parking lots
+                            in various areas of Syros. The app allowed users to locate parking spaces and book tickets
+                            online for reserved spots, streamlining the parking experience. This project combined
+                            problem-solving skills with a user-focused design approach, demonstrating proficiency in
+                            mobile app development and project collaboration.
                         </p>
                         <p>
                             Designed for both iOS and Android platforms, the app showcases innovative features and a
@@ -728,10 +631,13 @@
                     <div class="mt-4">
                         <h5>About the Poster Design</h5>
                         <p>
-                            This poster collection emphasizes bold, innovative visuals for impactful marketing and
-                            promotions.
-                            The posters utilize dynamic layouts, vibrant colors, and modern typography to grab
-                            attention and communicate effectively.
+                            Utilized Adobe Photoshop and Illustrator to create professional posters for various projects
+                            during my university studies. These included:
+
+                            A sales pitch event, where the poster captured the essence of the presentation.
+                            Assignments for an Entrepreneurship course, blending creativity with impactful messaging.
+                            Other academic and extracurricular projects, where I honed my skills in visual communication
+                            and branding.
                         </p>
                         <p>
                             Designed for both digital and print use, the posters blend aesthetic appeal with
@@ -782,9 +688,12 @@
                     <div class="mt-4">
                         <h5>SHOEDES Design Workshop Competition</h5>
                         <p>
-                            This shoe design features a sustainable and ergonomic approach, combining innovative
-                            materials with functional design. The sleek aesthetics are matched with comfort and
-                            durability for everyday wear.
+                            Participated in the prestigious Erasmus+ competition and workshop called SHOEDES,
+                            collaborating with two talented colleagues. Together, we developed a sustainable and
+                            innovative shoe prototype that earned third place in Europe. The project focused on
+                            eco-friendly concepts, utilizing bio-based TPU, algae-based foam, and R-PET materials. This
+                            recognition highlighted not only our design skills but also our ability to work effectively
+                            as a team on an international platform.
                         </p>
                         <p>
                             Engineered for both fashion and performance, these shoes are ideal for consumers seeking
@@ -836,6 +745,7 @@
                             class="icon-social-facebook"></i></a>
                 </li>
             </ul>
+            <p class="text-muted small mb-0">Contact at +30 6948192740</p>
             <p class="text-muted small mb-0">Copyright &copy; 2024 Argiris Sergiannis</p>
         </div>
     </footer>
@@ -845,6 +755,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
+
+
 </body>
 
 </html>
