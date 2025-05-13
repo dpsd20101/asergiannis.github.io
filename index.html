@@ -1,762 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Argiris Sergiannis</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/img/drawing.png" />
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Simple line icons-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css"
-        rel="stylesheet" />
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
-        rel="stylesheet" type="text/css" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RBMXQK9JYQ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-RBMXQK9JYQ');
-    </script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Argiris Sergiannis</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+<body>
 
-<body id="page-top">
+    <div class="toolbar">
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <nav class="toolbar-menu">
+        <a href="#hero">HOME</a>
+        <a href="#about">ABOUT</a>
+        <a href="#work">MY WORK</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
+    </div>
 
-
-    <!-- Navigation-->
-    <a class="menu-toggle rounded" class="fade-in" href="#"><i class="fas fa-bars"></i></a>
-    <nav id="sidebar-wrapper">
-        <ul class="sidebar-nav">
-            <li class="sidebar-brand"><img height=80px; src="assets/img/cv-image.png"></li>
-            <li class="sidebar-nav-item"><a href="#page-top">Home</a></li>
-            <li class="sidebar-nav-item"><a href="#about">About</a></li>
-            <li class="sidebar-nav-item"><a href="#services">Services</a></li>
-            <li class="sidebar-nav-item"><a href="#portfolio">Portfolio</a></li>
-            <li class="sidebar-nav-item"><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-    <!-- Header -->
-    <header class="masthead d-flex align-items-center" class="fade-in">
-        <div class="container px-4 px-lg-5 text-center header-container">
-            <h1 class="mb-1">Portfolio of Argiris Sergiannis</h1>
-            <h3 class="mb-5">
-                <em>Open the hamburger menu for more details!</em>
-            </h3>
-            <a class="btn btn-primary btn-xl" href="#about">What I Do</a>
+    <div class="main-content" id="main-content">
+      
+      <div class="hero">
+        <div class="hero-header">
+          <span class="hero-name">ARGYRIS<br>SERGIANNIS</span>
+          <a href="#about" class="about-btn">ABOUT ME</a>
         </div>
-    </header>
-
-
-    <!-- About-->
-    <section class="content-section bg-light" id="about">
-        <div class="container px-4 px-lg-5 text-center">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-lg-10">
-                    <h2>Designing Experiences that Inspire and Engage!</h2>
-                    <p class="lead mb-5">
-                        With a passion for creativity and a focus on user-centric design, I craft digital solutions that
-                        not only look great but also deliver seamless user experiences. Whether it’s designing sleek
-                        interfaces or creating memorable brand identities, my goal is to help businesses stand out in a
-                        visually-driven world.
-                    </p>
-
-                    <!-- New Download Button -->
-                    <a class="btn btn-primary btn-xl" href="assets/cv_new_en.pdf" download="CV-Argiris_Sergiannis_EN.pdf">DOWNLOAD
-                        MY CV</a>
-
-
-                    <a class="btn btn-dark btn-xl" href="#services">What I Offer</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Services-->
-    <section class="content-section bg-primary text-white text-center" id="services">
-        <div class="container px-4 px-lg-5">
-            <div class="content-section-heading">
-                <h3 class="text-secondary mb-0">Services</h3>
-                <h2 class="mb-5">What I Offer</h2>
-            </div>
-            <div class="row gx-4 gx-lg-5">
-                <!-- UX/UI Design Service -->
-                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                    <span class="service-icon rounded-circle mx-auto mb-3"><i class="fas fa-desktop"></i></span>
-                    <h4><strong>UX/UI Design</strong></h4>
-                    <p class="text-faded mb-0">Creating user-friendly interfaces for web and mobile apps.</p>
-                </div>
-
-                <!-- Branding Service -->
-                <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
-                    <span class="service-icon rounded-circle mx-auto mb-3"><i class="fas fa-lightbulb"></i></span>
-                    <h4><strong>Branding</strong></h4>
-                    <p class="text-faded mb-0">Developing unique brand identities that stand out.</p>
-                </div>
-
-                <!-- Logo Design Service -->
-                <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
-                    <span class="service-icon rounded-circle mx-auto mb-3"><i class="fas fa-pen-nib"></i></span>
-                    <h4><strong>Logo Design</strong></h4>
-                    <p class="text-faded mb-0">Designing memorable logos tailored to your business.</p>
-                </div>
-
-                <!-- Custom Service (Optional) -->
-                <div class="col-lg-3 col-md-6">
-                    <span class="service-icon rounded-circle mx-auto mb-3"><i class="fas fa-paint-brush"></i></span>
-                    <h4><strong>Illustration</strong></h4>
-                    <p class="text-faded mb-0">Creating bespoke illustrations to enhance your brand.</p>
-                </div>
-            </div>
-        </div>
-
-
-        <a class="btn btn-dark btn-xl" href="#portfolio">My Portfolio</a>
-    </section>
-
-    <style>
-        /* Enforce same dimensions for all carousels and images */
-        .portfolio-item img {
-            width: 100%;
-            /* Ensures it takes up the full width of its container */
-            height: 500px;
-            /* Fixed height for images */
-            object-fit: cover;
-            /* Maintain aspect ratio and fit within the frame */
-            border-radius: 15px;
-            /* Adds rounded corners to images */
-        }
-
-        /* Hover Effect */
-        .portfolio-item img:hover {
-            transform: scale(1.02);
-            /* Slight enlargement */
-            filter: brightness(0.9);
-            /* Slight darkening */
-        }
-
-        /* Carousel Container */
-        #portfolioCarousel {
-            max-width: 85%;
-            /* Adjust to desired width (e.g., 80%, 85%) */
-            margin: 0 auto;
-            /* Center the carousel */
-            border-radius: 15px;
-            /* Adds rounded corners to the slideshow container */
-            overflow: hidden;
-            /* Ensures the content respects rounded corners */
-        }
-
-        .carousel-inner {
-            display: block;
-            height: auto;
-            /* Maintain the natural aspect ratio of content */
-            max-width: 100%;
-        }
-
-
-        /* Adjust title and description styles for side-by-side layout */
-        .portfolio-item .caption .h2 {
-            margin: 0;
-            white-space: nowrap;
-            /* Prevent wrapping of the title */
-        }
-
-        .portfolio-item .caption .h4 {
-            margin: 0;
-            white-space: nowrap;
-            /* Prevent wrapping of the description */
-            font-weight: normal;
-            opacity: 0.8;
-            /* Slightly dim description for distinction */
-        }
-
-        /* Caption Styling */
-        .portfolio-item .caption {
-            position: absolute;
-            width: 100%;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            background: rgba(0, 0, 0, 0.5);
-            /* Semi-transparent background */
-            color: white;
-            text-align: center;
-            padding-top: 40px;
-            padding-left: 40px;
-            /* Add padding to prevent cropping */
-
-        }
-
-
-        .portfolio-item .btn {
-            position: absolute;
-            /* Makes the button placement consistent */
-            bottom: 200px;
-            /* Place it near the bottom of the caption */
-            left: 50%;
-            /* Center horizontally */
-            transform: translateX(-50%);
-            /* Adjust for centering */
-            z-index: 10;
-            /* Ensure the button stays on top */
-            padding: 20px 40px;
-            /* Optional padding for better button appearance */
-        }
-
-        /* Hover Effect */
-        .portfolio-item img:hover {
-            transform: scale(1.02);
-            /* Slight enlargement */
-            filter: brightness(0.9);
-            /* Slight darkening */
-        }
-
-
-        /* Style the entire modal dialog */
-        .modal-dialog {
-            background-color: #f9f9f9;
-            /* Light background */
-            border-radius: 10px;
-            /* Rounded corners */
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            /* Subtle shadow */
-        }
-
-        /* Style for larger modal specifically */
-        .modal-lg {
-            max-width: 90%;
-            /* Adjust the width for larger modals */
-            margin: 20px auto;
-            /* Add spacing around the modal */
-        }
-
-        /* Style the modal header */
-        .modal-header {
-            background-color: #007bff;
-            /* Primary blue */
-            color: white;
-            /* White text */
-            padding: 15px;
-            /* Add padding */
-            border-top-left-radius: 10px;
-            /* Match rounded corners */
-            border-top-right-radius: 10px;
-        }
-
-        /* Style the modal title */
-        .modal-title {
-            font-size: 1.5rem;
-            /* Larger title font */
-            font-weight: bold;
-            /* Make the title bold */
-        }
-
-        /* Style the modal body */
-        .modal-body {
-            background-color: #fff;
-            /* White background */
-            color: #333;
-            /* Dark text color */
-            font-size: 1rem;
-            /* Adjust font size */
-            padding: 20px;
-            /* Add padding inside the body */
-            overflow-y: auto;
-            /* Allow scrolling if content overflows */
-            max-height: 70vh;
-            /* Restrict height to viewport */
-        }
-
-        /* Style the close button */
-        .btn-close {
-            color: white;
-            /* Make the button match the header */
-            opacity: 0.8;
-            /* Slight transparency */
-        }
-
-
-        /* Semi-transparent and glossy effect for header background */
-        header.masthead {
-            background-image: url(assets/img/bg-masthead.jpg);
-            /* Add your background image path */
-            background-size: cover;
-            /* Cover the entire header */
-            background-position: center;
-            /* Center the image */
-            height: 100vh;
-            /* Full height for the header */
-            position: relative;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-            /* Apply the blur effect on the entire background */
-            -webkit-backdrop-filter: blur(10px);
-            /* Safari compatibility */
-            color: white;
-            /* Ensure text stands out */
-        }
-
-        /* Frosted glass effect for overlay */
-        header .header-container {
-            background: rgba(255, 255, 255, 0.2);
-            /* Semi-transparent white */
-            backdrop-filter: blur(10px);
-            /* Frosted glass blur effect */
-            width: 80%;
-            margin: 0;
-            -webkit-backdrop-filter: blur(10px);
-            /* Safari support */
-            padding: 172px;
-            /* Add spacing inside the container */
-            border-radius: 15px;
-            /* Rounded corners */
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-            /* Add a subtle shadow for depth */
-            color: white;
-            /* Ensure text is visible */
-            text-align: center;
-            /* Center-align the text */
-        }
-
-        header a.btn:hover {
-            background-color: rgba(255, 255, 255, 0.7);
-            /* Fully opaque on hover */
-            color: #007bff;
-            /* Blue text on hover */
-        }
-
-
-        .btn-close:hover {
-            opacity: 1;
-            /* Full opacity on hover */
-        }
-
-
-
-
-        /* Style the modal body */
-        .modal-body img {
-            object-fit: contain;
-            /* Ensure the image fits within the defined dimensions while maintaining aspect ratio */
-            max-width: 80%;
-            /* Set the maximum width of the image */
-            max-height: 400px;
-            /* Set the maximum height of the image */
-            margin: 0 auto;
-            /* Center the image */
-            display: block;
-            /* Ensure the image behaves like a block element */
-            border-radius: 10px;
-            /* Optional: Add rounded corners */
-        }
-
-
-        .modal-body h5 {
-
-
-            text-align: center;
-        }
-
-
-
-        /* Fade-in effect */
-        .fade-in {
-            opacity: 0;
-            /* Start fully transparent */
-            animation: fadeIn 2s ease-in-out forwards;
-            /* Animation properties */
-        }
-
-        /* Keyframes for fade-in */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                /* Starting point */
-            }
-
-            to {
-                opacity: 1;
-                /* Fully visible */
-            }
-        }
-    </style>
-
-    <section class="content-section" id="portfolio">
-        <div class="container-fluid px-0">
-            <div class="content-section-heading text-center">
-                <h3 class="text-secondary mb-0">Portfolio</h3>
-                <h2 class="mb-5">Recent Projects</h2>
-            </div>
-            <!-- Main Portfolio Slideshow -->
-            <div id="portfolioCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <!-- Web Design Slide -->
-                    <div class="carousel-item active">
-                        <div class="portfolio-item">
-                            <div class="caption">
-                                <div class="h1">Web Design</div>
-                                <p class="h4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Crafting responsive and beautiful web
-                                    experiences.</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalWebDesign">View
-                                    Details</button>
-                            </div>
-                            <img src="assets/img/Web_Design_1.png" class="d-block w-100" alt="Web Design">
-                        </div>
-                    </div>
-                    <!-- App Design Slide -->
-                    <div class="carousel-item">
-                        <div class="portfolio-item">
-                            <div class="caption">
-                                <div class="h1">App Design</div>
-                                <p class="h4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Designing intuitive and modern app
-                                    interfaces.</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalAppDesign">View
-                                    Details</button>
-                            </div>
-                            <img src="assets/img/App-Design_1.png" class="d-block w-100" alt="App Design">
-                        </div>
-                    </div>
-                    <!-- Poster Design Slide -->
-                    <div class="carousel-item">
-                        <div class="portfolio-item">
-                            <div class="caption">
-                                <div class="h1">Poster Design</div>
-                                <p class="h4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Creating eye-catching posters for
-                                    various events and
-                                    brands.</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalPosterDesign">View
-                                    Details</button>
-                            </div>
-                            <img src="assets/img/MOCKUP1.jpg" class="d-block w-100" alt="Poster Design">
-                        </div>
-                    </div>
-                    <!-- Shoe Design Slide -->
-                    <div class="carousel-item">
-                        <div class="portfolio-item">
-                            <div class="caption">
-                                <div class="h1">Shoe Design</div>
-                                <p class="h4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Innovative and sustainable footwear
-                                    concepts.</p>
-                                <button class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#modalShoeDesign">View
-                                    Details</button>
-                            </div>
-                            <img src="assets/img/Emorph (1).jpg" class="d-block w-100" alt="Shoe Design">
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-    </section>
-
-
-
-
-    <!-- Web Design Modal -->
-    <div class="modal fade" id="modalWebDesign" tabindex="-1" aria-labelledby="modalWebDesignLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalWebDesignLabel">WEB DESIGN</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="overflow-y: auto; max-height: 90vh;">
-                    <!-- Carousel for Images -->
-                    <div id="carouselWebDesign" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="assets/img/Web_Design_1.png" class="d-block w-100" alt="Web Design 1"
-                                    style="object-fit: contain;">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="assets/img/Web_Design_2.png" class="d-block w-100" alt="Web Design 2"
-                                    style="object-fit: contain;">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="assets/img/Web_Design_3.png" class="d-block w-100" alt="Web Design 3"
-                                    style="object-fit: contain;">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselWebDesign"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselWebDesign"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-
-                    <!-- Static Description Below Carousel -->
-                    <div class="mt-4">
-                        <h5>Cooking Site Assignment</h5>
-                        <p>
-                            Created a dynamic and responsive cooking website using HTML and CSS as the foundation. The
-                            project went beyond static design, incorporating JavaScript for interactive elements and
-                            employing SQL and PHP to retrieve and display metadata dynamically. This enabled the site to
-                            showcase recipes and user-generated content efficiently, simulating a professional web
-                            application environment and demonstrating a comprehensive understanding of backend and
-                            frontend integration.
-                        </p>
-                        <p>
-                            Developed with a mobile-first approach, these websites ensure compatibility across all
-                            devices while maintaining high performance and accessibility standards.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <p>SPECIALIZING IN USER-CENTRIC PRODUCT DESIGN, I CRAFT INTUITIVE, ENGAGING EXPERIENCES THAT BLEND CREATIVITY WITH FUNCTIONAL EXCELLENCE, TRANSFORMING COMPLEX IDEAS INTO ELEGANT, USER-FRIENDLY SOLUTIONS THAT RESONATE WITH PEOPLE.</p>
+      </div>
     </div>
 
 
-    <!-- App Design Modal -->
-    <div class="modal fade" id="modalAppDesign" tabindex="-1" aria-labelledby="modalAppDesignLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalAppDesignLabel">APP DESIGN</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="overflow-y: auto; max-height: 90vh;">
-                    <!-- Carousel for Images -->
-                    <div id="carouselAppDesign" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="assets/img/App-Design_1.png" class="d-block w-100" alt="App Design 1"
-                                    style="object-fit: contain;">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="assets/img/App_Design_2.png" class="d-block w-100" alt="App Design 2"
-                                    style="object-fit: contain;">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselAppDesign"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselAppDesign"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-
-                    <!-- Static Description Below Carousel -->
-                    <div class="mt-4">
-                        <h5>Android Studio Assignments</h5>
-                        <p>
-                            Worked alongside two colleagues to develop an app aimed at improving the use of parking lots
-                            in various areas of Syros. The app allowed users to locate parking spaces and book tickets
-                            online for reserved spots, streamlining the parking experience. This project combined
-                            problem-solving skills with a user-focused design approach, demonstrating proficiency in
-                            mobile app development and project collaboration.
-                        </p>
-                        <p>
-                            Designed for both iOS and Android platforms, the app showcases innovative features and a
-                            responsive design for optimal performance across devices.
-                        </p>
-                    </div>
-                </div>
+    <div class="about-me" id="about-me">
+    
+      <div class="about-me-content">
+        <div class="about-layout">
+          <div class="about-left">
+            <div class="about-avatar">
+              <!-- You can use an <img> here if you have a photo -->
+              <!-- For now, let's use a placeholder SVG for the avatar -->
+              <svg viewBox="0 0 200 200" width="200" height="200">
+                <circle cx="100" cy="70" r="50" fill="#888" />
+                <rect x="40" y="120" width="120" height="60" rx="30" fill="#888" />
+              </svg>
             </div>
-        </div>
-    </div>
-
-
-    <!-- Poster Design Modal -->
-    <div class="modal fade" id="modalPosterDesign" tabindex="-1" aria-labelledby="modalPosterDesignLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalPosterDesignLabel">POSTER DESIGN</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="overflow-y: auto; max-height: 90vh;">
-                    <!-- Carousel for Images -->
-                    <div id="carouselPosterDesign" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="assets/img/MOCKUP1.jpg" class="d-block w-100" alt="Poster Design 1"
-                                    style="object-fit: contain;">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="assets/img/MOCKUP2-b.jpg" class="d-block w-100" alt="Poster Design 2"
-                                    style="object-fit: contain;">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselPosterDesign"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselPosterDesign"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-
-                    <!-- Static Description Below Carousel -->
-                    <div class="mt-4">
-                        <h5>About the Poster Design</h5>
-                        <p>
-                            Utilized Adobe Photoshop and Illustrator to create professional posters for various projects
-                            during my university studies. These included:
-
-                            A sales pitch event, where the poster captured the essence of the presentation.
-                            Assignments for an Entrepreneurship course, blending creativity with impactful messaging.
-                            Other academic and extracurricular projects, where I honed my skills in visual communication
-                            and branding.
-                        </p>
-                        <p>
-                            Designed for both digital and print use, the posters blend aesthetic appeal with
-                            functional messaging, ideal for professional campaigns.
-                        </p>
-                    </div>
-                </div>
+            <div class="about-description">
+              <h3 class="description-title">DESIGN FOCUS</h3>
+              <div class="description-divider"></div>
+              <p>
+                LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT. NULAM ULAMCORPER EGESTAS SEM, NEC ULTRICIES SAPIEN SCELERISQUE QUIS. CURABITUR UT TELLUS SEM. CRAS EUISMOD IACULIS MAURIS, IN ORNARE ORCI MALESUADA NEC. ALIQUAM ERAT VOLUTPAT. AENEAN AC SODALES ODIO. AENEAN DOLOR NISI, ELEMENTUM AC DOLOR AC,
+              </p>
             </div>
-        </div>
-    </div>
-
-
-    <!-- Shoe Design Modal -->
-    <div class="modal fade" id="modalShoeDesign" tabindex="-1" aria-labelledby="modalShoeDesignLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalShoeDesignLabel">SHOE DESIGN</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="overflow-y: auto; max-height: 90vh;">
-                    <!-- Carousel for Images -->
-                    <div id="carouselShoeDesign" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="assets/img/Emorph (1).jpg" class="d-block w-100" alt="Shoe Design 1"
-                                    style="object-fit: contain;">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="assets/img/Emorph (2).jpg" class="d-block w-100" alt="Shoe Design 2"
-                                    style="object-fit: contain;">
-                            </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselShoeDesign"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselShoeDesign"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-
-                    <!-- Static Description Below Carousel -->
-                    <div class="mt-4">
-                        <h5>SHOEDES Design Workshop Competition</h5>
-                        <p>
-                            Participated in the prestigious Erasmus+ competition and workshop called SHOEDES,
-                            collaborating with two talented colleagues. Together, we developed a sustainable and
-                            innovative shoe prototype that earned third place in Europe. The project focused on
-                            eco-friendly concepts, utilizing bio-based TPU, algae-based foam, and R-PET materials. This
-                            recognition highlighted not only our design skills but also our ability to work effectively
-                            as a team on an international platform.
-                        </p>
-                        <p>
-                            Engineered for both fashion and performance, these shoes are ideal for consumers seeking
-                            a perfect balance of style and practicality.
-                        </p>
-                    </div>
-                </div>
+          </div>
+          <div class="about-right">
+            
+          <div class="about-me-carousel-region">
+            <button class="carousel-arrow up">
+              <img src="assets/up_arrow.png" alt="Up" class="arrow-img" />
+            </button>
+            <div class="carousel">
+              <div class="card" data-title="Web Design" data-description="Description for Desktop: Focusing on responsive web design and development."><i class="fa-solid fa-desktop"></i></div>
+              <div class="card" data-title="Creative Ideas" data-description="Description for Lightbulb: Idea generation, brainstorming, and creative solutions."><i class="fa-regular fa-lightbulb"></i></div>
+              <div class="card" data-title="UI/UX Focus" data-description="Description for Pen Nib: UI/UX design, wireframing, and prototyping."><i class="fa-solid fa-pen-nib"></i></div>
+              <div class="card" data-title="Visual Arts" data-description="Description for Brush: Visual design, branding, and illustration skills."><i class="fa-solid fa-brush"></i></div>
+              <div class="card" data-title="Tech & Tools" data-description="Description for Gear: Technical skills, problem-solving, and development tools."><i class="fa-solid fa-gear"></i></div>
             </div>
+            <button class="carousel-arrow down">
+              <img src="assets/down_arrow.png" alt="Down" class="arrow-img" />
+            </button>
+           
+          </div>
+         
+            <a class="about-btn my-work-btn" href="#work">MY WORK</a>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 
-    </section>
-
-    <!-- Call to Action-->
-    <section class="content-section bg-primary text-white">
-        <div class="container px-4 px-lg-5 text-center">
-            <h2 class="mb-4">Let’s Bring Your Ideas to Life</h2>
-            <p class="mb-5">Whether you're looking for a unique design or a complete brand overhaul, I'm here to help!
-                Let’s collaborate on something amazing.</p>
-            <a class="btn btn-xl btn-light me-4" href="#contact">Get in Touch</a>
+  <div class="portfolio-section" id="portfolio">
+    <div class="portfolio-content">
+      <h2 class="portfolio-title">MY WORK</h2>
+      <div class="portfolio-carousel-container">
+        <button class="portfolio-arrow prev" aria-label="Previous project">
+          <img src="assets/arrow_left.png" alt="Previous">
+        </button>
+        <div class="portfolio-carousel">
+          <div class="portfolio-slide" data-project-index="0">
+            <div class="portfolio-image-container">
+              <img src="assets/img/Web_Design_1.png" alt="Project 1 Image" class="portfolio-image-item">
+              <div class="portfolio-text-content overlay">
+                <h3 class="portfolio-item-title">Project Alpha</h3>
+                <p class="portfolio-item-description">Brief description of Project Alpha, highlighting key features and technologies used.</p>
+              </div>
+              <div class="see-more-prompt">
+                <span class="see-more-text">SEE MORE...</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-slide" data-project-index="1">
+            <div class="portfolio-image-container">
+              <img src="assets/img/App_Design_2.png" alt="Project 2 Image" class="portfolio-image-item">
+              <div class="portfolio-text-content overlay">
+                <h3 class="portfolio-item-title">Project Beta</h3>
+                <p class="portfolio-item-description">Brief description of Project Beta, highlighting key features and technologies used.</p>
+              </div>
+              <div class="see-more-prompt">
+                <span class="see-more-text">SEE MORE...</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-slide" data-project-index="2">
+            <div class="portfolio-image-container">
+              <img src="assets/img/MOCKUP1.jpg" alt="Project 3 Image" class="portfolio-image-item">
+              <div class="portfolio-text-content overlay">
+                <h3 class="portfolio-item-title">Project Gamma</h3>
+                <p class="portfolio-item-description">Brief description of Project Gamma, highlighting key features and technologies used.</p>
+              </div>
+              <div class="see-more-prompt">
+                <span class="see-more-text">SEE MORE...</span>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
+        <button class="portfolio-arrow next" aria-label="Next project">
+          <img src="assets/arrow_right.png" alt="Next">
+        </button>
+      </div>
+      <div class="portfolio-dots-container">
+        <!-- Dots will be generated by JavaScript -->
+      </div>
+      <a href="#contact" class="about-btn contact-btn">CONTACT ME</a>
+    </div>
+  </div>
 
-    <!-- Map-->
-    <div class="map" id="contact">
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3171.8462526196483!2d24.9397248!3d37.4407168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z37wrMjYnMjMuNCJOIDI0wrA1NicyMS43IkU!5e0!3m2!1sen!2sgr!4v1631864452794!5m2!1sen!2sgr"
-            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
+  <!-- === CONTACT SECTION === -->
+  <section id="contact" class="contact-section">
+    <div class="contact-content">
+      <h2 class="contact-title">GET IN TOUCH</h2>
+      <div class="map-container">
+        <!-- 
+          Placeholder for Google Maps Embed.
+          1. Go to Google Maps (maps.google.com).
+          2. Search for your location.
+          3. Click "Share".
+          4. Go to the "Embed a map" tab.
+          5. Copy the HTML (iframe code).
+          6. Paste the iframe code here, replacing this comment and the placeholder iframe below.
+          7. Adjust width="100%" and height="450" (or desired height) attributes on the iframe.
+        -->
+        <iframe 
+          src="https://maps.app.goo.gl/HBtqVV1JUwVum1ow8"
+          width="100%" 
+          height="450" 
+          style="border:0; border-radius: 10px;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
         </iframe>
+      </div>
+      <!-- You could add contact details or a form here later -->
     </div>
+  </section>
 
-    <!-- Footer-->
-    <footer class="footer text-center">
-        <div class="container px-4 px-lg-5">
-            <ul class="list-inline mb-5">
-                <li class="list-inline-item">
-                    <a class="social-link rounded-circle text-white mr-3"
-                        href="https://www.linkedin.com/in/argiris-sergiannis-69a434189/?originalSubdomain=gr"><i
-                            class="icon-social-linkedin"></i></a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="social-link rounded-circle text-white mr-3"
-                        href="https://www.instagram.com/sergiannhs_a/"><i class="icon-social-instagram"></i></a>
-                </li>
-                <li class="list-inline-item">
-                    <a class="social-link rounded-circle text-white"
-                        href="https://www.facebook.com/profile.php/?id=100024200745429&_rdr"><i
-                            class="icon-social-facebook"></i></a>
-                </li>
-            </ul>
-            <p class="text-muted small mb-0">Contact at +30 6948192740</p>
-            <p class="text-muted small mb-0">Copyright &copy; 2024 Argiris Sergiannis</p>
+  <!-- === FOOTER === -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-main">
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
-    </footer>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+        <div class="footer-info">
+          <p>Contact at +30 6948192740</p>
+          <p>Copyright &copy; 2024 Argiris Sergiannis</p>
+          <p>dpsd20101@syros.aegean.gr</p>
+        </div>
+      </div>
+      <div class="footer-aside">
+        <a href="#hero" class="back-to-top">
+          <span>GO BACK UP</span>
+          <i class="fas fa-arrow-up"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
 
+  <script src="script.js"></script>
+
+  <!-- Project Detail Modal -->
+  <div id="project-detail-modal" class="project-detail-modal">
+    <div class="modal-content-wrapper">
+      <button class="modal-close-btn" aria-label="Close project details">
+        &times;
+      </button>
+      <div class="modal-left-panel">
+        <div class="modal-header">
+          <h2 id="modal-project-title">PROJECT TITLE HERE</h2>
+        </div>
+        <div class="modal-main-content">
+          <div class="modal-image-slider-container">
+            <img src="" alt="Project image" id="modal-project-image" style="width:100%; height:auto; max-height: 300px; object-fit: cover; display: block;">
+          </div>
+          
+          <div class="text-carousel-container">
+            <button class="text-carousel-arrow prev" aria-label="Previous page"><img src="assets/arrow_left.png" alt="Previous"></button>
+            <div class="text-carousel-page-display">
+              <div class="text-carousel-track">
+                <!-- Project detail page divs will be loaded here by JS -->
+              </div>
+            </div>
+            <button class="text-carousel-arrow next" aria-label="Next page"><img src="assets/arrow_right.png" alt="Next"></button>
+          </div>
+          <div class="text-carousel-dots-container">
+            <!-- Dots will be generated by JS -->
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
-
 </html>
