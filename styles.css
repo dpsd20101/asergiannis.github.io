@@ -79,7 +79,7 @@ body {
 
   @font-face {
     font-family: 'Berlinerins Trial';
-    src: url('C:/Users/aserg/AppData/Local/Microsoft/Windows/Fonts/TT BERLINERINS TRIAL GROTESK.OTF') format('truetype');
+    src: url('fonts/TT Berlinerins Trial Grotesk.otf') format('truetype');
   }
 
   .hero-header {
