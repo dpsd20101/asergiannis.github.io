@@ -11,13 +11,16 @@ body {
   .toolbar {
     position: fixed;
     top: 0;
-    z-index: 1000; /* Make sure it stays above other content */
+    left: 0;
+    right: 0;
+    z-index: 1000;
     background: #eae7e6;
     padding: 16px 24px;
     display: flex;
     align-items: center;
-    position: relative;
     justify-content: flex-start;
+    width: 100%;
+    box-sizing: border-box;
   }
   .hamburger {
     width: 32px;
@@ -79,7 +82,7 @@ body {
 
   @font-face {
     font-family: 'Berlinerins Trial';
-    src: url('fonts/TT Berlinerins Trial Grotesk.otf') format('truetype');
+    src: url('./fonts/TT Berlinerins Trial Grotesk.otf') format('truetype');
   }
 
   .hero-header {
