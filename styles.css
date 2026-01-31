@@ -66,6 +66,10 @@ body {
     font-weight: bold;
     transition: background 0.2s, color 0.2s;
   }
+  .about-avatar-img {
+  position: absolute;
+ scale: 1.5;
+}
   .hero p {
     font-family: 'Berlinerins Trial', sans-serif;
     font-size: 3vw;
