@@ -11,16 +11,13 @@ body {
   .toolbar {
     position: fixed;
     top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
+    z-index: 1000; /* Make sure it stays above other content */
     background: #eae7e6;
     padding: 16px 24px;
     display: flex;
     align-items: center;
+    position: relative;
     justify-content: flex-start;
-    width: 100%;
-    box-sizing: border-box;
   }
   .hamburger {
     width: 32px;
@@ -51,6 +48,19 @@ body {
     padding: 40px 24px 24px 24px;
     text-align: left;
   }
+
+
+.about-avatar-img {
+    display: block;
+  margin: 0 auto; 
+  width: 220px;       /* adjust as needed */
+  height: 220px;
+   transform: translateX(-50px); /* move left */
+   scale: 1.2;
+
+  border-radius: 50%;
+}
+
   .about-btn {
     display: flexbox;
     background: #e06d6d;
@@ -82,7 +92,7 @@ body {
 
   @font-face {
     font-family: 'Berlinerins Trial';
-    src: url('./fonts/TT Berlinerins Trial Grotesk.otf') format('truetype');
+    src: url('C:/Users/aserg/AppData/Local/Microsoft/Windows/Fonts/TT BERLINERINS TRIAL GROTESK.OTF') format('truetype');
   }
 
   .hero-header {
@@ -402,8 +412,8 @@ body {
 
   .about-avatar {
     margin-top: 20px;
-    width: 260px;
-    height: 260px;
+    width: 340px;
+    height: 340px;
     border-radius: 50%;
     background: #ccc;
     display: flex;
@@ -414,6 +424,13 @@ body {
     animation: float-avatar 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     will-change: transform;
     transform-origin: center center;
+  }
+
+  .about-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 
   .about-description {
@@ -1194,52 +1211,101 @@ body {
 
   /* About Me Vertical Carousel Styles */
   .about-me-carousel-region {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
     position: relative;
-    height: 400px;
-    width: 200px;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: center;
+    margin: 32px 0;
   }
 
   .about-me .carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 440px; /* Increased height */
-    position: relative;
-    perspective: 1000px;
-    transform-style: preserve-3d;
-    overflow: hidden;
   }
 
   .about-me .carousel .card {
-    width: 200px;
-    height: 200px;
-    background-color: #b0a8a4;
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 80px;
+    height: 80px;
+    background: #e06d6d;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ffffff;
-    font-size: 7rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
-    flex-shrink: 0;
-    opacity: 0;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s ease;
+    color: white;
+    font-size: 24px;
+    margin: 0 10px;
   }
 
-  /* Style for the icon itself inside the card */
-  .about-me .carousel .card i {
-    line-height: 1;
+  .carousel-arrow {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #e06d6d;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background-color 0.2s;
+  }
+
+  .carousel-arrow:hover {
+    background: #c95a5a;
+  }
+
+  .carousel-arrow .arrow-img {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s;
+  }
+
+  .carousel-arrow.up {
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+  }
+
+  .carousel-arrow.down {
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+  }
+
+  @media (max-width: 600px) {
+    .about-me-carousel-region {
+      height: 150px;
+    }
+
+    .about-me .carousel .card {
+      width: 60px;
+      height: 60px;
+      margin: 0 5px;
+    }
+
+    .carousel-arrow {
+      width: 32px;
+      height: 32px;
+    }
+
+    .carousel-arrow .arrow-img {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   /* === Project Detail Modal Styles === */
