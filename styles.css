@@ -48,7 +48,7 @@ body {
     transform: translateY(-13px) rotate(-45deg);
   }
   .hero {
-    padding: 80px 24px 24px 24px;
+    padding: 160px 24px 24px 24px;
     text-align: left;
   }
   .about-btn {
