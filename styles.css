@@ -1,3 +1,8 @@
+:root { --toolbar-h: 72px; } /* start here, tweak if needed */
+
+body { padding-top: var(--toolbar-h); }
+
+
 body {
     margin: 0;
     background: #a9c8d74c; /* Adjust to match your image */
@@ -70,6 +75,11 @@ body {
   position: absolute;
  scale: 0.4;
 }
+
+  .hero {
+    padding: 80px 24px 24px 24px;
+    text-align: left;
+  }
   .hero p {
     font-family: 'Berlinerins Trial', sans-serif;
     font-size: 3vw;
@@ -293,7 +303,7 @@ body {
       padding: 12px 8px;
     }
     .hero {
-      padding: 24px 8px 16px 8px;
+      padding: 80px 8px 16px 8px;
     }
     .hero-header {
       max-width: 100vw;
