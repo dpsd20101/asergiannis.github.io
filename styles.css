@@ -52,10 +52,7 @@ body {
   .hamburger.active span:nth-child(3) {
     transform: translateY(-13px) rotate(-45deg);
   }
-  .hero {
-    padding: 320px 24px 24px 24px;
-    text-align: left;
-  }
+
   .about-btn {
     display: flexbox;
     background: #e06d6d;
