@@ -1,167 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Argiris Sergiannis</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Argiris Sergiannis</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
 
-    <div class="toolbar">
+  <div class="toolbar">
+    <div class="mobile-toolbar">
       <div class="hamburger">
         <span></span>
         <span></span>
         <span></span>
       </div>
-      <nav class="toolbar-menu">
-        <a href="#hero">HOME</a>
-        <a href="#about">ABOUT</a>
-        <a href="#work">MY WORK</a>
-        <a href="#contact">CONTACT</a>
-      </nav>
     </div>
+    <nav class="toolbar-menu">
+      <a href="#hero" data-english="HOME" data-greek="ΑΡΧΙΚΗ">HOME</a>
+      <a href="#about" data-english="ABOUT" data-greek="ΣΧΕΤΙΚΑ">ABOUT</a>
+      <a href="#work" data-english="MY WORK" data-greek="Η ΔΟΥΛΕΙΑ ΜΟΥ">MY WORK</a>
+      <a href="#contact" data-english="CONTACT" data-greek="ΕΠΙΚΟΙΝΩΝΙΑ">CONTACT</a>
+    </nav>
+    <div class="language-icons">
+      <span class="lang-icon-box">
+        <img src="assets/british.png" alt="English" class="lang-icon active" data-default="assets/british.png" data-active="assets/british-active.png">
+      </span>
+      <span class="lang-icon-box">
+        <img src="assets/greek.png" alt="Greek" class="lang-icon" data-default="assets/greek.png" data-active="assets/greek-active.png">
+      </span>
+    </div>
+  </div>
 
-    <div class="main-content" id="main-content">
-      
-      <div class="hero">
-        <div class="hero-header">
-          <span class="hero-name">ARGYRIS<br>SERGIANNIS</span>
-          <a href="#about" class="about-btn">ABOUT ME</a>
+  <div class="main-content" id="main-content">
+
+    <div class="hero">
+      <div class="hero-header">
+        <span class="hero-name" data-english="ARGYRIS SERGIANNIS" data-greek="ΑΡΓΥΡΗΣ ΣΕΡΓΙΑΝΝΗΣ">ARGYRIS<br>SERGIANNIS</span>
+        <a href="#about" class="about-btn" data-english="ABOUT ME" data-greek="ΣΧΕΤΙΚΑ ΜΕ ΕΜΕΝΑ">ABOUT ME</a>
+      </div>
+      <p data-english="SPECIALIZING IN USER-CENTRIC PRODUCT DESIGN, I CRAFT INTUITIVE, ENGAGING EXPERIENCES THAT BLEND CREATIVITY WITH
+        FUNCTIONAL EXCELLENCE, TRANSFORMING COMPLEX IDEAS INTO ELEGANT, USER-FRIENDLY SOLUTIONS THAT RESONATE WITH
+        PEOPLE."
+        data-greek="ΕΙΔΙΚΕΥΟΜΑΙ ΣΤΟ USER-CENTRIC PRODUCT DESIGN ΚΑΙ ΔΗΜΙΟΥΡΓΩ ΔΙΑΙΣΘΗΤΙΚΕΣ, ΕΝΔΙΑΦΕΡΟΥΣΕΣ ΕΜΠΕΙΡΙΕΣ ΠΟΥ ΣΥΝΔΥΑΖΟΥΝ ΤΗ ΔΗΜΙΟΥΡΓΙΚΟΤΗΤΑ ΜΕ ΤΗ ΛΕΙΤΟΥΡΓΙΚΗ ΑΡΤΙΟΤΗΤΑ, ΜΕΤΑΤΡΕΠΟΝΤΑΣ ΣΥΝΘΕΤΕΣ ΙΔΕΕΣ ΣΕ ΚΟΜΨΕΣ, ΦΙΛΙΚΕΣ ΠΡΟΣ ΤΟΝ ΧΡΗΣΤΗ ΛΥΣΕΙΣ ΠΟΥ ΑΓΓΙΖΟΥΝ ΤΟΥΣ ΑΝΘΡΩΠΟΥΣ.">SPECIALIZING IN USER-CENTRIC PRODUCT DESIGN, I CRAFT INTUITIVE, ENGAGING EXPERIENCES THAT BLEND CREATIVITY WITH
+        FUNCTIONAL EXCELLENCE, TRANSFORMING COMPLEX IDEAS INTO ELEGANT, USER-FRIENDLY SOLUTIONS THAT RESONATE WITH
+        PEOPLE.</p>
+    </div>
+  </div>
+
+
+  <div class="about-me" id="about-me">
+
+    <div class="about-me-content">
+      <div class="about-layout">
+
+        <div class="about-avatar">
+          <img src="assets/img/cv-image.png" alt="Avatar" class="about-avatar-img">
         </div>
-        <p>SPECIALIZING IN USER-CENTRIC PRODUCT DESIGN, I CRAFT INTUITIVE, ENGAGING EXPERIENCES THAT BLEND CREATIVITY WITH FUNCTIONAL EXCELLENCE, TRANSFORMING COMPLEX IDEAS INTO ELEGANT, USER-FRIENDLY SOLUTIONS THAT RESONATE WITH PEOPLE.</p>
+
+        <div class="about-me-carousel-region">
+          <button class="carousel-arrow left">
+            <img src="assets/arrow_left.png" alt="Left" class="arrow-img" />
+          </button>
+          <div class="carousel">
+            <div class="card" data-title="Web Design" data-title-el="Σχεδιασμός Ιστοσελίδων"
+              data-description="Description for Desktop: Focusing on responsive web design and development."><i
+                class="fa-solid fa-desktop"></i></div>
+            <div class="card" data-title="Creative Ideas" data-title-el="Δημιουργικές Ιδέες"
+              data-description="Description for Lightbulb: Idea generation, brainstorming, and creative solutions."><i
+                class="fa-regular fa-lightbulb"></i></div>
+            <div class="card" data-title="Visual Arts" data-title-el="Οπτικές Τέχνες"
+              data-description="Description for Pen Nib: Visual design, branding, and illustration skills."><i
+                class="fa-solid fa-pen-nib"></i></div>
+            <div class="card" data-title="UI/UX Focus" data-title-el="Εστίαση UI/UX"
+              data-description="Description for Brush: UI/UX design, wireframing, and prototyping."><i
+                class="fa-solid fa-brush"></i></div>
+            <div class="card" data-title="Tech & Tools" data-title-el="Τεχνολογία & Εργαλεία"
+              data-description="Description for Gear: Technical skills, problem-solving, and development tools."><i
+                class="fa-solid fa-gear"></i></div>
+          </div>
+          <button class="carousel-arrow right">
+            <img src="assets/arrow_right.png" alt="Right" class="arrow-img" />
+          </button>
+        </div>
+
+        <div class="about-description">
+          <h3 class="description-title" data-english="DESIGN FOCUS" data-greek="ΣΧΕΔΙΑΣΤΙΚΗ ΕΣΤΙΑΣΗ">DESIGN FOCUS</h3>
+          <div class="description-divider"></div>
+          <p>
+            LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT. NULAM ULAMCORPER EGESTAS SEM, NEC ULTRICIES SAPIEN
+            SCELERISQUE QUIS. CURABITUR UT TELLUS SEM. CRAS EUISMOD IACULIS MAURIS, IN ORNARE ORCI MALESUADA NEC.
+            ALIQUAM ERAT VOLUTPAT. AENEAN AC SODALES ODIO. AENEAN DOLOR NISI, ELEMENTUM AC DOLOR AC,
+          </p>
+          <div class="about-tools-logos" aria-hidden="true">
+            <!-- Three slots we populate depending on the active card -->
+            <img src="assets/photoshop-logo-png.png" alt="Adobe Photoshop" class="tool-logo tool-logo-1">
+            <img src="assets/png-transparent-adobe-illustrator-macos-bigsur-icon-thumbnail.png" alt="Adobe Illustrator"
+              class="tool-logo tool-logo-2">
+            <img src="assets/HTML5_logo_and_wordmark.svg.png" alt="HTML5" class="tool-logo tool-logo-3">
+          </div>
+        </div>
+
+        <div class="about-actions">
+          <a class="about-btn my-work-btn" href="#work" data-english="MY WORK" data-greek="Η ΔΟΥΛΕΙΑ ΜΟΥ">MY WORK</a>
+        </div>
+
       </div>
     </div>
-
-
-    <div class="about-me" id="about-me">
-    
-      <div class="about-me-content">
-        <div class="about-layout">
-          <div class="about-left">
-            <div class="about-avatar">
-              <svg viewBox="0 0 200 200" width="200" height="200">
-            
-                <img src="assets/img/cv-image.png"   alt="Avatar" class="about-avatar-img">
-              </svg>
-            </div>
-            <div class="about-description">
-              <h3 class="description-title">DESIGN FOCUS</h3>
-              <div class="description-divider"></div>
-              <p>
-                LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT. NULAM ULAMCORPER EGESTAS SEM, NEC ULTRICIES SAPIEN SCELERISQUE QUIS. CURABITUR UT TELLUS SEM. CRAS EUISMOD IACULIS MAURIS, IN ORNARE ORCI MALESUADA NEC. ALIQUAM ERAT VOLUTPAT. AENEAN AC SODALES ODIO. AENEAN DOLOR NISI, ELEMENTUM AC DOLOR AC,
-              </p>
-            </div>
-          </div>
-          <div class="about-right">
-            
-          <div class="about-me-carousel-region">
-            <button class="carousel-arrow up">
-              <img src="assets/up_arrow.png" alt="Up" class="arrow-img" />
-            </button>
-            <div class="carousel">
-              <div class="card" data-title="Web Design" data-description="Description for Desktop: Focusing on responsive web design and development."><i class="fa-solid fa-desktop"></i></div>
-              <div class="card" data-title="Creative Ideas" data-description="Description for Lightbulb: Idea generation, brainstorming, and creative solutions."><i class="fa-regular fa-lightbulb"></i></div>
-              <div class="card" data-title="UI/UX Focus" data-description="Description for Pen Nib: UI/UX design, wireframing, and prototyping."><i class="fa-solid fa-pen-nib"></i></div>
-              <div class="card" data-title="Visual Arts" data-description="Description for Brush: Visual design, branding, and illustration skills."><i class="fa-solid fa-brush"></i></div>
-              <div class="card" data-title="Tech & Tools" data-description="Description for Gear: Technical skills, problem-solving, and development tools."><i class="fa-solid fa-gear"></i></div>
-            </div>
-            <button class="carousel-arrow down">
-              <img src="assets/down_arrow.png" alt="Down" class="arrow-img" />
-            </button>
-           
-          </div>
-         
-            <a class="about-btn my-work-btn" href="#work">MY WORK</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>
   </div>
 
   <div class="portfolio-section" id="portfolio">
     <div class="portfolio-content">
-      <h2 class="portfolio-title">MY WORK</h2>
-      <div class="portfolio-carousel-container">
-        <button class="portfolio-arrow prev" aria-label="Previous project">
-          <img src="assets/arrow_left.png" alt="Previous">
-        </button>
-        <div class="portfolio-carousel">
-          <div class="portfolio-slide" data-project-index="0">
-            <div class="portfolio-image-container">
-              <img src="assets/img/Web_Design_1.png" alt="Project 1 Image" class="portfolio-image-item">
-              <div class="portfolio-text-content overlay">
-                <h3 class="portfolio-item-title">Project Alpha</h3>
-                <p class="portfolio-item-description">Brief description of Project Alpha, highlighting key features and technologies used.</p>
+      <h2 class="portfolio-title" data-english="MY WORK" data-greek="Η ΔΟΥΛΕΙΑ ΜΟΥ">MY WORK</h2>
+      <div class="portfolio-carousel-layout">
+        <div class="portfolio-carousel-container">
+          <button class="portfolio-arrow prev" aria-label="Previous project">
+            <img src="assets/arrow_left.png" alt="Previous">
+          </button>
+          <div class="portfolio-carousel">
+            <div class="portfolio-slide" data-project-index="0">
+              <div class="portfolio-image-container">
+                <img src="assets/img/Web_Design_1.png" alt="Project 1 Image" class="portfolio-image-item">
+                <div class="portfolio-text-content overlay">
+                  <h3 class="portfolio-item-title" data-english="Web Design" data-greek="Σχεδιασμός Ιστοσελίδων">Web Design</h3>
+                  <p class="portfolio-item-description" data-english="Crafting aesthetic, functional webpages." data-greek="Δημιουργώ αισθητικές και λειτουργικές ιστοσελίδες.">Crafting aesthetic, functional webpages.</p>
+                </div>
+                <div class="see-more-prompt">
+                  <span class="see-more-text" data-english="SEE MORE..." data-greek="ΔΕΣ ΠΕΡΙΣΣΟΤΕΡΑ...">SEE MORE...</span>
+                </div>
               </div>
-              <div class="see-more-prompt">
-                <span class="see-more-text">SEE MORE...</span>
+            </div>
+            <div class="portfolio-slide" data-project-index="1">
+              <div class="portfolio-image-container">
+                <img src="assets/img/App_Design_2.png" alt="Project 2 Image" class="portfolio-image-item app-screenshot">
+                <div class="portfolio-text-content overlay">
+                  <h3 class="portfolio-item-title" data-english="App Design" data-greek="Σχεδιασμός Εφαρμογών">App Design</h3>
+                  <p class="portfolio-item-description" data-english="Designing and developing the right service for your needs." data-greek="Σχεδιάζω και αναπτύσσω τη σωστή υπηρεσία για τις ανάγκες σας.">Designing and developing the right service for your needs.</p>
+                </div>
+                <div class="see-more-prompt">
+                  <span class="see-more-text" data-english="SEE MORE..." data-greek="ΔΕΣ ΠΕΡΙΣΣΟΤΕΡΑ...">SEE MORE...</span>
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-slide" data-project-index="2">
+              <div class="portfolio-image-container">
+                <img src="assets/img/MOCKUP1.jpg" alt="Project 3 Image" class="portfolio-image-item">
+                <div class="portfolio-text-content overlay">
+                  <h3 class="portfolio-item-title" data-english="Graphic Design" data-greek="Γραφιστικός Σχεδιασμός">Graphic Design</h3>
+                  <p class="portfolio-item-description" data-english="Visual work that transforms ideas into branding and design solutions that support both identity and business presence." data-greek="Οπτική δουλειά που μετατρέπει ιδέες σε branding και σχεδιαστικές λύσεις που ενισχύουν τόσο την ταυτότητα όσο και την επιχειρηματική παρουσία.">Visual work that transforms ideas into branding and design
+                    solutions that support both identity and business presence.</p>
+                </div>
+                <div class="see-more-prompt">
+                  <span class="see-more-text" data-english="SEE MORE..." data-greek="ΔΕΣ ΠΕΡΙΣΣΟΤΕΡΑ...">SEE MORE...</span>
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-slide" data-project-index="3">
+              <div class="portfolio-image-container">
+                <img src="assets/img/emorph.png" alt="Project 4 Image" class="portfolio-image-item">
+                <div class="portfolio-text-content overlay">
+                  <h3 class="portfolio-item-title" data-english="Product Design" data-greek="Σχεδιασμός Προϊόντων">Product Design</h3>
+                  <p class="portfolio-item-description" data-english="Turning ideas into functional, thoughtful, and visually refined products." data-greek="Μετατρέπω ιδέες σε λειτουργικά, προσεγμένα και οπτικά εκλεπτυσμένα προϊόντα.">Turning ideas into functional, thoughtful, and visually refined
+                    products.</p>
+                </div>
+                <div class="see-more-prompt">
+                  <span class="see-more-text" data-english="SEE MORE..." data-greek="ΔΕΣ ΠΕΡΙΣΣΟΤΕΡΑ...">SEE MORE...</span>
+                </div>
               </div>
             </div>
           </div>
-          <div class="portfolio-slide" data-project-index="1">
-            <div class="portfolio-image-container">
-              <img src="assets/img/App_Design_2.png" alt="Project 2 Image" class="portfolio-image-item">
-              <div class="portfolio-text-content overlay">
-                <h3 class="portfolio-item-title">Project Beta</h3>
-                <p class="portfolio-item-description">Brief description of Project Beta, highlighting key features and technologies used.</p>
-              </div>
-              <div class="see-more-prompt">
-                <span class="see-more-text">SEE MORE...</span>
-              </div>
-            </div>
-          </div>
-          <div class="portfolio-slide" data-project-index="2">
-            <div class="portfolio-image-container">
-              <img src="assets/img/MOCKUP1.jpg" alt="Project 3 Image" class="portfolio-image-item">
-              <div class="portfolio-text-content overlay">
-                <h3 class="portfolio-item-title">Project Gamma</h3>
-                <p class="portfolio-item-description">Brief description of Project Gamma, highlighting key features and technologies used.</p>
-              </div>
-              <div class="see-more-prompt">
-                <span class="see-more-text">SEE MORE...</span>
-              </div>
-            </div>
-          </div>
+          <button class="portfolio-arrow next" aria-label="Next project">
+            <img src="assets/arrow_right.png" alt="Next">
+          </button>
         </div>
-        <button class="portfolio-arrow next" aria-label="Next project">
-          <img src="assets/arrow_right.png" alt="Next">
-        </button>
+        <div class="portfolio-mobile-details" aria-live="polite">
+          <h3 class="portfolio-mobile-title"></h3>
+          <p class="portfolio-mobile-description"></p>
+        </div>
       </div>
       <div class="portfolio-dots-container">
         <!-- Dots will be generated by JavaScript -->
       </div>
-      <a href="#contact" class="about-btn contact-btn">CONTACT ME</a>
+      <a href="#contact" class="about-btn contact-btn" data-english="CONTACT ME" data-greek="ΕΠΙΚΟΙΝΩΝΗΣΕ ΜΑΖΙ ΜΟΥ">CONTACT ME</a>
     </div>
   </div>
 
   <!-- === CONTACT SECTION === -->
   <section id="contact" class="contact-section">
     <div class="contact-content">
-      <h2 class="contact-title">GET IN TOUCH</h2>
-      <div class="map-container">
-        <!-- 
-          Placeholder for Google Maps Embed.
-          1. Go to Google Maps (maps.google.com).
-          2. Search for your location.
-          3. Click "Share".
-          4. Go to the "Embed a map" tab.
-          5. Copy the HTML (iframe code).
-          6. Paste the iframe code here, replacing this comment and the placeholder iframe below.
-          7. Adjust width="100%" and height="450" (or desired height) attributes on the iframe.
-        -->
-        <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3167.6166272008372!2d24.942306478558763!3d37.44616044338967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sel!2sgr!4v1747666686934!5m2!1sel!2sgr"
-        width="100%" 
-        height="450" 
-        style="border:0; border-radius: 10px;" 
-        allowfullscreen="" 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
+      <h2 class="contact-title" data-english="GET IN TOUCH" data-greek="ΕΠΙΚΟΙΝΩΝΗΣΕ">GET IN TOUCH</h2>
+      <div class="contact-wrapper">
+        <div class="map-container">
+          <!-- 
+            Placeholder for Google Maps Embed.
+            Replace src with your actual Google Maps embed URL.
+            To get an embed URL:
+            1. Go to Google Maps
+            2. Search for your location
+            3. Click "Share" -> "Embed a map"
+            4. Copy the iframe src
+          -->
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3132.889008308313!2d21.738915775716862!3d38.25888017186739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x135e4994e83a60bb%3A0x445e3579c1dd2b67!2zzqDOrc69z4TOtSDOoM63zrPOsc60zq_Pic69IDMwLCDOoM6sz4TPgc6xIDI2NCA0MQ!5e0!3m2!1sel!2sgr!4v1773242905166!5m2!1sel!2sgr"
+            width="600"
+            height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        </div>
+        
+        <div class="contact-info">
+          <div class="contact-details">
+            <h3 data-english="Contact Information" data-greek="Στοιχεία Επικοινωνίας">Contact Information</h3>
+            <p class="contact-phone">
+              <i class="fas fa-phone"></i>
+              <span class="divider-vertical"></span>
+              <span data-english="Contact at +30 6948192740" data-greek="Επικοινωνία στο +30 6948192740">Contact at +30 6948192740</span>
+            </p>
+            <p class="contact-email">
+              <i class="fas fa-envelope"></i>
+              <span class="divider-vertical"></span>
+              dpsd20101@syros.aegean.gr
+            </p>
+            <div class="divider-horizontal"></div>
+          </div>
+        </div>
       </div>
-      <!-- You could add contact details or a form here later -->
     </div>
   </section>
 
@@ -175,14 +247,12 @@
           <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
         <div class="footer-info">
-          <p>Contact at +30 6948192740</p>
-          <p>Copyright &copy; 2024 Argiris Sergiannis</p>
-          <p>dpsd20101@syros.aegean.gr</p>
+          <p data-english="Copyright © 2026 Argiris Sergiannis" data-greek="Πνευματικά δικαιώματα © 2026 Αργύρης Σεργιάννης">Copyright &copy; 2026 Argiris Sergiannis</p>
         </div>
       </div>
       <div class="footer-aside">
         <a href="#hero" class="back-to-top">
-          <span>GO BACK UP</span>
+          <span data-english="GO BACK UP" data-greek="ΕΠΙΣΤΡΟΦΗ ΠΑΝΩ">GO BACK UP</span>
           <i class="fas fa-arrow-up"></i>
         </a>
       </div>
@@ -203,17 +273,19 @@
         </div>
         <div class="modal-main-content">
           <div class="modal-image-slider-container">
-            <img src="" alt="Project image" id="modal-project-image" style="width:100%; height:auto; max-height: 300px; object-fit: cover; display: block;">
+            <img src="" alt="Project image" id="modal-project-image" class="modal-project-image">
           </div>
-          
+
           <div class="text-carousel-container">
-            <button class="text-carousel-arrow prev" aria-label="Previous page"><img src="assets/arrow_left.png" alt="Previous"></button>
+            <button class="text-carousel-arrow prev" aria-label="Previous page"><img src="assets/arrow_left.png"
+                alt="Previous"></button>
             <div class="text-carousel-page-display">
               <div class="text-carousel-track">
                 <!-- Project detail page divs will be loaded here by JS -->
               </div>
             </div>
-            <button class="text-carousel-arrow next" aria-label="Next page"><img src="assets/arrow_right.png" alt="Next"></button>
+            <button class="text-carousel-arrow next" aria-label="Next page"><img src="assets/arrow_right.png"
+                alt="Next"></button>
           </div>
           <div class="text-carousel-dots-container">
             <!-- Dots will be generated by JS -->
@@ -225,4 +297,5 @@
   </div>
 
 </body>
+
 </html>

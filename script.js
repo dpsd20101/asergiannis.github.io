@@ -1,9 +1,111 @@
 const hamburger = document.querySelector('.hamburger');
 const menu = document.querySelector('.toolbar-menu');
 
-hamburger.addEventListener('click', function() {
+hamburger.addEventListener('click', function () {
   this.classList.toggle('active');
   menu.classList.toggle('show');
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const languageIcons = document.querySelectorAll('.lang-icon');
+  const englishFlag = document.querySelector('.lang-icon[alt="English"]');
+  const aboutSection = document.getElementById('about-me');
+
+  function rebuildHeroName(lang) {
+    const heroNameElement = document.querySelector('.hero-name');
+    if (!heroNameElement) return;
+
+    const source = heroNameElement.getAttribute(lang === 'el' ? 'data-greek' : 'data-english');
+    if (!source) return;
+
+    const withLetters = source
+      .split('')
+      .map(char => {
+        if (char === ' ' || char === '\n') return '<span class="hero-letter">&nbsp;</span>';
+        if (char === '<' || char === '>') return char;
+        return `<span class="hero-letter">${char}</span>`;
+      })
+      .join('')
+      .replace(/<span class="hero-letter">&lt;<\/span>br<span class="hero-letter">&gt;<\/span>/g, '<br>');
+
+    heroNameElement.innerHTML = withLetters;
+  }
+
+  function applyLanguageState(lang) {
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('[data-greek][data-english]').forEach(element => {
+      if (element.classList.contains('hero-name')) {
+        return;
+      }
+
+      const translated = element.getAttribute(lang === 'el' ? 'data-greek' : 'data-english');
+      if (!translated) return;
+
+      if (translated.includes('<br>')) {
+        element.innerHTML = translated;
+      } else {
+        element.textContent = translated;
+      }
+    });
+
+    rebuildHeroName(lang);
+  }
+
+  function updateInactiveFlags() {
+    const useBlack = aboutSection && window.scrollY > (aboutSection.offsetTop + aboutSection.offsetHeight);
+
+    languageIcons.forEach(icon => {
+      if (icon.classList.contains('active')) {
+        icon.style.filter = 'none';
+        return;
+      }
+
+      icon.classList.toggle('black', !!useBlack);
+      icon.style.filter = useBlack
+        ? 'brightness(0) contrast(3)'
+        : 'brightness(0) invert(1) contrast(3)';
+    });
+  }
+
+  function activateLanguage(icon) {
+    languageIcons.forEach(otherIcon => {
+      const isActive = otherIcon === icon;
+      otherIcon.classList.toggle('active', isActive);
+      otherIcon.src = otherIcon.getAttribute(isActive ? 'data-active' : 'data-default');
+    });
+
+    updateInactiveFlags();
+    applyLanguageState(icon.getAttribute('alt') === 'Greek' ? 'el' : 'en');
+  }
+
+  languageIcons.forEach(icon => {
+    icon.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      activateLanguage(this);
+    });
+  });
+
+  window.addEventListener('scroll', updateInactiveFlags);
+
+  if (englishFlag) {
+    activateLanguage(englishFlag);
+  } else {
+    applyLanguageState('en');
+  }
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', function (e) {
+  const isClickInsideMenu = menu.contains(e.target);
+  const isClickOnHamburger = hamburger.contains(e.target);
+  const isMenuOpen = menu.classList.contains('show');
+  
+  if (isMenuOpen && !isClickInsideMenu && !isClickOnHamburger) {
+    hamburger.classList.remove('active');
+    menu.classList.remove('show');
+  }
 });
 
 const heroName = document.querySelector('.hero-name');
@@ -13,8 +115,16 @@ heroName.innerHTML = text.split('').map(char => {
   return `<span class="hero-letter">${char}</span>`;
 }).join('');
 
+function getCurrentLanguage() {
+  return document.documentElement.lang === 'el' ? 'el' : 'en';
+}
+
 const mainContent = document.getElementById('main-content');
 const aboutMe = document.getElementById('about-me');
+// Title element for the About description block
+const aboutDescriptionTitle = document.querySelector('.description-title');
+
+let ignoreScroll = false;
 
 // Ensure both have the fade class
 mainContent.classList.add('fade');
@@ -29,16 +139,16 @@ function showAbout() {
     // Let the scroll listener handle the fade naturally during scroll
     // Ensure final state after scroll completes
     setTimeout(() => {
-        aboutMeSection.style.opacity = '1';
-        aboutMeSection.style.pointerEvents = 'auto';
-        aboutMeSection.style.zIndex = '2';
-        const mainContent = document.getElementById('main-content');
-        if (mainContent) {
-            mainContent.style.opacity = '0';
-            mainContent.style.pointerEvents = 'none';
-            mainContent.style.zIndex = '1';
-        }
-        ignoreScroll = false;
+      aboutMeSection.style.opacity = '1';
+      aboutMeSection.style.pointerEvents = 'auto';
+      aboutMeSection.style.zIndex = '2';
+      const mainContent = document.getElementById('main-content');
+      if (mainContent) {
+        mainContent.style.opacity = '0';
+        mainContent.style.pointerEvents = 'none';
+        mainContent.style.zIndex = '1';
+      }
+      ignoreScroll = false;
     }, 950); // Slightly longer than scroll duration
   }
 }
@@ -52,29 +162,33 @@ function showMain() {
     // Let the scroll listener handle the fade naturally during scroll
     // Ensure final state after scroll completes
     setTimeout(() => {
-        mainContentSection.style.opacity = '1';
-        mainContentSection.style.pointerEvents = 'auto';
-        mainContentSection.style.zIndex = '2';
-        const aboutMe = document.getElementById('about-me');
-        if (aboutMe) {
-            aboutMe.style.opacity = '0';
-            aboutMe.style.pointerEvents = 'none';
-            aboutMe.style.zIndex = '1';
-        }
-        ignoreScroll = false;
+      mainContentSection.style.opacity = '1';
+      mainContentSection.style.pointerEvents = 'auto';
+      mainContentSection.style.zIndex = '2';
+      const aboutMe = document.getElementById('about-me');
+      if (aboutMe) {
+        aboutMe.style.opacity = '0';
+        aboutMe.style.pointerEvents = 'none';
+        aboutMe.style.zIndex = '1';
+      }
+      ignoreScroll = false;
     }, 950); // Slightly longer than scroll duration
   }
 }
 
 // Attach to nav and button
 document.querySelectorAll('a[href="#about"]').forEach(link => {
-  link.addEventListener('click', function(e) {
+  link.addEventListener('click', function (e) {
     e.preventDefault();
-    showAbout();
-    // Wait for the fade-in to start, then scroll to about section
+
+    // Add a slight delay specifically so button click visual effects (like our splash) can render
     setTimeout(() => {
-      smoothScrollTo(document.getElementById('about-me'), 900); // 900ms for a nice effect
-    }, 510); // Slightly more than your fade duration (500ms)
+      showAbout();
+      // Wait for the fade-in to start, then scroll to about section
+      setTimeout(() => {
+        smoothScrollTo(document.getElementById('about-me'), 900); // 900ms for a nice effect
+      }, 510);
+    }, 300);
   });
 });
 
@@ -100,15 +214,9 @@ backBtn.onclick = function() {
 document.querySelector('#about-me .about-me-content').appendChild(backBtn);
 */
 
-// The following variables were part of the back button logic, ensure they are defined if used elsewhere
-// or remove if only for the back button.
-let ignoreScroll = false;
-let aboutShownByScroll = false;
-let lastScrollY = window.scrollY;
-
 // Attach to the HOME nav item
 document.querySelectorAll('a[href="#hero"]').forEach(link => {
-  link.addEventListener('click', function(e) {
+  link.addEventListener('click', function (e) {
     e.preventDefault();
     ignoreScroll = true;
     showMain();
@@ -146,7 +254,7 @@ function smoothScrollTo(target, duration = 800) {
 }
 
 // Initialize sections
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const mainContent = document.getElementById('main-content');
   const aboutMe = document.getElementById('about-me');
   if (mainContent) mainContent.style.opacity = '1';
@@ -154,22 +262,41 @@ document.addEventListener('DOMContentLoaded', function() {
   if (aboutMe) aboutMe.style.pointerEvents = 'none';
   if (mainContent) mainContent.style.zIndex = '2';
   if (aboutMe) aboutMe.style.zIndex = '1';
+
+  // Evaluate toolbar coloring on scroll
+  const toolbar = document.querySelector('.toolbar');
+  const portfolioSection = document.getElementById('portfolio');
+
+  window.addEventListener('scroll', () => {
+    if (!toolbar || !portfolioSection) return;
+    // Get the top position of the portfolio section relative to the viewport
+    const portfolioTop = portfolioSection.getBoundingClientRect().top;
+
+    // If the top of the portfolio section hits the toolbar (which is e.g. 100px tall), switch to dark mode
+    if (portfolioTop <= 80) {
+      toolbar.classList.add('dark-mode');
+    } else {
+      toolbar.classList.remove('dark-mode');
+    }
+  });
+
+  // Trigger a scroll event on load to fix the blank screen bug on refresh
+  // This evaluates the current scroll position and makes the correct sections visible
+  setTimeout(() => window.dispatchEvent(new Event('scroll')), 50);
 });
+
 
 // === ABOUT ME VERTICAL CAROUSEL ===
 // 1. grab elements and set up state
-const aboutMeCarousel = document.querySelector('.about-me .carousel'); 
+const aboutMeCarousel = document.querySelector('.about-me .carousel');
 const aboutMeCarouselRegion = document.querySelector('.about-me-carousel-region');
 const aboutDescriptionP = document.querySelector('.about-description p'); // Get the description paragraph
-const aboutDescriptionTitle = document.querySelector('.description-title'); // Get the title H3
 
-if (aboutMeCarousel && aboutMeCarouselRegion && aboutDescriptionP && aboutDescriptionTitle) { // Check for title too
-  let offset = 0;      
-  let velocity = 0;      // drag speed
-  let dragging = false;
-  let isCoasting = false;
-  let lastY = 0;
+if (aboutMeCarousel && aboutMeCarouselRegion && aboutDescriptionP) {
+  let offset = 0;
   let animationFrame;
+  let isMobile = window.innerWidth <= 600; // Check if mobile view
+  let logoSwapTimeout = null; // controls staggered fade-out → fade-in for tool logos
 
   // 2. the core rendering function
   function updateCards() {
@@ -179,44 +306,148 @@ if (aboutMeCarousel && aboutMeCarouselRegion && aboutDescriptionP && aboutDescri
     cards.forEach((card, i) => {
       const pos = i - 2 + offset;
       const scale = Math.max(0.7, 1 - Math.abs(pos) * 0.2);
+      const finalOpacity = Math.abs(pos) < 0.5 ? 1 : 0;
 
-      let finalOpacity = 0;
-      if (dragging || isCoasting) {
-        let vis = 1 - Math.abs(pos) * 0.6;
-        finalOpacity = vis >= 0.39 ? 1 : 0;
-      } else {
-        finalOpacity = Math.abs(pos) < 0.5 ? 1 : 0;
-      }
+      card.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s ease';
 
-      card.style.transition = dragging
-        ? 'none'
-        : 'transform 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s ease';
-      card.style.transform = `translate(-50%, -50%) translateY(${pos * 110}px) scale(${scale})`;
+      // Horizontal layout universally
+      card.style.transform = `translate(-50%, -50%) translateX(${pos * 140}px) scale(${scale})`;
+
       card.style.opacity = finalOpacity;
       card.style.zIndex = finalOpacity ? (10 - Math.abs(pos)) : 0;
 
-      // Check if this is the settled, central card and update description AND title
-      if (finalOpacity === 1 && !dragging && !isCoasting && !centerCardIdentified) {
-        const newTitle = card.dataset.title;
-        const newDescription = card.dataset.description;
+      // Check if this is the settled, central card and update description, title, and tool logos
+      if (finalOpacity === 1 && !centerCardIdentified) {
+        // Trust the card's own data-title for the logical label so
+        // icon, title, and description can never drift out of sync.
+        const logicalKey = card.dataset.title || 'Web Design';
 
-        // Update Title (Directly)
-        if (newTitle && aboutDescriptionTitle.innerText !== newTitle) {
-            aboutDescriptionTitle.innerText = newTitle;
+        // Keep the about copy in sync with the selected language.
+        const englishDescriptions = {
+          'Web Design': 'Focusing on responsive web design and development.',
+          'Creative Ideas': 'Idea generation, brainstorming, and creative solutions.',
+          'UI/UX Focus': 'UI/UX design, wireframing, and prototyping.',
+          'Visual Arts': 'Visual design, branding, and illustration skills.',
+          'Tech & Tools': 'Technical skills, problem-solving, and development tools.'
+        };
+
+        const greekDescriptions = {
+          'Web Design': 'Εστιάζω στον responsive σχεδιασμό και την ανάπτυξη ιστοσελίδων.',
+          'Creative Ideas': 'Παραγωγή ιδεών, brainstorming και δημιουργικές λύσεις.',
+          'UI/UX Focus': 'Σχεδιασμός UI/UX, wireframing και prototyping.',
+          'Visual Arts': 'Οπτικός σχεδιασμός, branding και δεξιότητες εικονογράφησης.',
+          'Tech & Tools': 'Τεχνικές δεξιότητες, επίλυση προβλημάτων και εργαλεία ανάπτυξης.'
+        };
+
+        const isGreek = getCurrentLanguage() === 'el';
+        const localizedTitle = isGreek ? (card.dataset.titleEl || logicalKey) : logicalKey;
+
+        if (aboutDescriptionTitle) {
+          aboutDescriptionTitle.innerText = localizedTitle;
         }
 
-        // Update Description (With Fade)
-        if (newDescription && aboutDescriptionP.innerText !== newDescription) {
-            aboutDescriptionP.style.opacity = 0;
-            setTimeout(() => {
-                aboutDescriptionP.innerText = newDescription;
-                aboutDescriptionP.style.opacity = 1;
-            }, 150); // Small delay for fade effect (adjust timing as needed)
-        } else if (newDescription) { 
-            // If description is the same, ensure opacity is 1 (in case fade was interrupted)
-            aboutDescriptionP.innerText = newDescription; // Ensure text is correct even if not changed
+        const targetText = isGreek
+          ? (greekDescriptions[logicalKey] || 'Σχεδιαστικές δεξιότητες και εμπειρία.')
+          : (englishDescriptions[logicalKey] || 'Design-focused skills and experience.');
+        if (aboutDescriptionP.innerText !== targetText) {
+          aboutDescriptionP.style.opacity = 0;
+          setTimeout(() => {
+            aboutDescriptionP.innerText = targetText;
             aboutDescriptionP.style.opacity = 1;
+          }, 150);
+        } else {
+          aboutDescriptionP.style.opacity = 1;
         }
+
+        // Toggle tool logos based on the central card
+        const toolsLogos = document.querySelector('.about-tools-logos');
+        if (toolsLogos) {
+          const logo1 = toolsLogos.querySelector('.tool-logo-1');
+          const logo2 = toolsLogos.querySelector('.tool-logo-2');
+          const logo3 = toolsLogos.querySelector('.tool-logo-3');
+          const allLogos = toolsLogos.querySelectorAll('.tool-logo');
+
+          // Clear any in-flight swap so we can start a fresh fade sequence
+          if (logoSwapTimeout) {
+            clearTimeout(logoSwapTimeout);
+            logoSwapTimeout = null;
+          }
+
+          // Always remove active first so current icons fade OUT
+          allLogos.forEach(logo => logo.classList.remove('active'));
+
+          // Decide which pair should be shown based on the active card
+          const pairByKey = {
+            'UI/UX Focus': {
+              src1: 'assets/Figma-logo.svg.png',
+              alt1: 'Figma',
+              src2: 'assets/android_logo_PNG32.png',
+              alt2: 'Android / Android Studio'
+            },
+            'Visual Arts': {
+              src1: 'assets/photoshop-logo-png.png',
+              alt1: 'Adobe Photoshop',
+              src2: 'assets/png-transparent-adobe-illustrator-macos-bigsur-icon-thumbnail.png',
+              alt2: 'Adobe Illustrator'
+            },
+            'Tech & Tools': {
+              src1: 'assets/Sql_data_base_with_logo.png',
+              alt1: 'SQL Database',
+              src2: 'assets/Firebase-Logo.png',
+              alt2: 'Firebase'
+            },
+            'Creative Ideas': {
+              src1: 'assets/blender-logo.png',
+              alt1: 'Blender',
+              src2: 'assets/ptc-creo-elements-software.png',
+              alt2: 'Creo'
+            },
+            'Web Design': {
+              src1: 'assets/js-logo.png',
+              alt1: 'JavaScript',
+              src2: 'assets/HTML5_logo_and_wordmark.svg.png',
+              alt2: 'HTML5',
+              src3: 'assets/css-logo.png',
+              alt3: 'CSS'
+            }
+          };
+
+          const pair = pairByKey[logicalKey];
+
+          if (pair && logo1 && logo2) {
+            // Keep container visible while we fade out old icons
+            toolsLogos.classList.add('visible');
+            toolsLogos.setAttribute('aria-hidden', 'false');
+
+            // After fade-out finishes (including the stagger on the right logo),
+            // swap sources and fade the new pair IN
+            logoSwapTimeout = setTimeout(() => {
+              logo1.src = pair.src1;
+              logo1.alt = pair.alt1;
+              logo2.src = pair.src2;
+              logo2.alt = pair.alt2;
+              
+              // Handle third logo if it exists
+              if (logo3 && pair.src3 && pair.alt3) {
+                logo3.style.display = 'block';
+                logo3.src = pair.src3;
+                logo3.alt = pair.alt3;
+                logo3.classList.add('active');
+              } else if (logo3) {
+                logo3.style.display = 'none';
+                logo3.classList.remove('active');
+              }
+
+              // Trigger staggered fade-in via .active
+              logo1.classList.add('active');
+              logo2.classList.add('active');
+            }, 650); // 0.4s transition + 0.25s delay on right logo (with a small buffer)
+          } else {
+            toolsLogos.classList.remove('visible');
+            toolsLogos.setAttribute('aria-hidden', 'true');
+          }
+        }
+
         centerCardIdentified = true; // Mark that we've updated for this cycle
       }
     });
@@ -237,146 +468,54 @@ if (aboutMeCarousel && aboutMeCarouselRegion && aboutDescriptionP && aboutDescri
     }
   }
 
-  // 4. momentum + snap
-  function animateMomentum() {
-    if (animationFrame) cancelAnimationFrame(animationFrame); // Clear existing frame
-
-    if (Math.abs(velocity) < 0.01 && !dragging) { // Ensure not dragging for snap
-      const target = Math.round(offset);
-      if (Math.abs(offset - target) > 0.01) {
-        offset += (target - offset) * 0.2; // Snapping ease
-        wrapCards(); updateCards();
-        animationFrame = requestAnimationFrame(animateMomentum);
-        return;
-      }
-        offset = target;
-        velocity = 0;
-      isCoasting = false;
-        updateCards();
-      return;
-    }
-
-    if (!dragging) { // Only apply friction and coasting if not actively dragging
-        isCoasting = true;
-    offset += velocity;
-        velocity *= 0.97;   // friction
-    }
-    
-    wrapCards(); updateCards();
-    animationFrame = requestAnimationFrame(animateMomentum);
-  }
-
-  // --- Event Handlers --- 
-
-  function handleDragStart(yPosition) {
-    dragging = true;
-    lastY = yPosition;
-    velocity = 0;
-    aboutMeCarousel.style.cursor = 'grabbing';
+  // 4. snap to nearest card
+  function snapToNearest() {
     if (animationFrame) cancelAnimationFrame(animationFrame);
-    isCoasting = false; // Stop coasting if a new drag starts
-  }
 
-  function handleDragMove(yPosition) {
-    if (!dragging) return;
-    const dy = yPosition - lastY;
-    const delta = dy / 110; // Convert pixels to "card units"
-    offset += delta;
-    velocity = delta;
-    lastY = yPosition;
-
-    wrapCards();
-    updateCards();
-  }
-
-  function handleDragEnd() {
-    if (!dragging) return;
-    dragging = false;
-    aboutMeCarousel.style.cursor = 'grab';
-    if (Math.abs(velocity) > 0.01) { // Only start momentum if there was some flick
-        isCoasting = true;
-        animateMomentum();
-    } else { // If no real flick, just snap to current position
-        isCoasting = false;
-        animateMomentum(); // Will snap because velocity is low
+    const target = Math.round(offset);
+    if (Math.abs(offset - target) > 0.01) {
+      offset += (target - offset) * 0.2; // Snapping ease
+      wrapCards();
+      updateCards();
+      animationFrame = requestAnimationFrame(snapToNearest);
     }
   }
 
-  // MOUSE HANDLERS
-  aboutMeCarousel.addEventListener('mousedown', e => {
-    handleDragStart(e.clientY);
-  });
+  // 5. arrow click handlers
+  const leftArrow = aboutMeCarouselRegion.querySelector('.left');
+  const rightArrow = aboutMeCarouselRegion.querySelector('.right');
 
-  document.addEventListener('mousemove', e => {
-    // Only process if dragging started on the aboutMeCarousel
-    if (dragging && e.target && aboutMeCarousel.contains(e.target.ownerDocument.elementFromPoint(e.clientX, e.clientY))) {
-        handleDragMove(e.clientY);
-    } else if (dragging) { // If mouse moved outside but still dragging, treat as drag end
-        // handleDragEnd(); // Optional: end drag if mouse leaves carousel bounds too far
-    }
-  });
-  document.addEventListener('mouseup', () => {
-    if (dragging) { // Only end drag if it was initiated on this carousel
-        handleDragEnd();
-    }
-  });
-
-  // TOUCH HANDLERS
-  aboutMeCarousel.addEventListener('touchstart', e => {
-    if (e.touches.length === 1) {
-      handleDragStart(e.touches[0].clientY);
-    }
-  }, { passive: true });
-
-  aboutMeCarousel.addEventListener('touchmove', e => {
-    if (dragging && e.touches.length === 1) {
-      handleDragMove(e.touches[0].clientY);
-    }
-  }, { passive: true });
-
-  aboutMeCarousel.addEventListener('touchend', e => {
-    if (dragging) {
-      handleDragEnd();
-    }
-  });
-  aboutMeCarousel.addEventListener('touchcancel', e => {
-    if (dragging) {
-      handleDragEnd(); // Treat cancel like end
-    }
-  });
-
-  // ARROW BUTTONS
-  const upArrow = aboutMeCarouselRegion.querySelector('.carousel-arrow.up');
-  const downArrow = aboutMeCarouselRegion.querySelector('.carousel-arrow.down');
-
-  function handleArrowClick(direction) {
-    if (animationFrame) cancelAnimationFrame(animationFrame);
-    dragging = false;
-    isCoasting = false;
-    velocity = 0; // Ensure velocity is zeroed for immediate snap
-
-    if (direction === 'up') {
+  if (leftArrow) {
+    leftArrow.addEventListener('click', () => {
       offset -= 1;
-    } else if (direction === 'down') {
-      offset += 1;
-    }
-    
-    wrapCards(); // Call wrapCards HERE, before animateMomentum
-    
-    // Let animateMomentum handle wrapping and snapping to the new integer offset
-    animateMomentum(); 
+      wrapCards();
+      updateCards();
+      snapToNearest();
+    });
   }
 
-  if (upArrow) {
-    upArrow.addEventListener('click', () => handleArrowClick('up'));
+  if (rightArrow) {
+    rightArrow.addEventListener('click', () => {
+      offset += 1;
+      wrapCards();
+      updateCards();
+      snapToNearest();
+    });
   }
-  if (downArrow) {
-    downArrow.addEventListener('click', () => handleArrowClick('down'));
-  }
+
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    const wasMobile = isMobile;
+    isMobile = window.innerWidth <= 600;
+
+    // Only update if the layout type changed
+    if (wasMobile !== isMobile) {
+      updateCards();
+    }
+  });
 
   // Initial render
   updateCards();
-
 } else {
   console.warn("About Me carousel elements not found. Vertical carousel inactive.");
 }
@@ -403,10 +542,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentSlideIndex = 0;
   const totalSlides = slides.length;
   let isDragging = false;
-  let startPosX = 0;
+  let startPos = 0;
   let currentTranslate = 0;
   let prevTranslate = 0;
   let animationID = 0; // For requestAnimationFrame
+
+  // On mobile, carousel should be vertical (swipe up/down). Desktop remains horizontal.
+  let isVertical = window.innerWidth <= 768;
 
   // --- Create Dots --- 
   for (let i = 0; i < totalSlides; i++) {
@@ -423,65 +565,64 @@ document.addEventListener('DOMContentLoaded', () => {
     if (index < 0 || index >= totalSlides || isDragging || slides.length === 0) return;
     cancelAnimationFrame(animationID);
 
-    const slideWidthWithMargins = slides[0].offsetWidth + (parseFloat(getComputedStyle(slides[0]).marginLeft) * 2);
-    
-    currentSlideIndex = index;
-    // To center the active slide (80% width), we need to translate by its width 
-    // and then adjust for the fact that the container should show 10% of the prev/next slide.
-    // Or, more simply, translate by full slide width (including its own margins)
-    // and then shift back by a certain amount if the container is not wide enough to show peeking slides by default.
-    // Let's use a simpler direct translation calculation first, assuming the container is wide enough
-    // or that the overflow:hidden on container + centered track will achieve the look.
-
-    // Calculate the total width of one slide including its horizontal margins
     const firstSlide = slides[0];
     const slideStyle = getComputedStyle(firstSlide);
-    const slideOuterWidth = firstSlide.offsetWidth + parseFloat(slideStyle.marginLeft) + parseFloat(slideStyle.marginRight);
 
-    currentTranslate = -index * slideOuterWidth;
-    // To perfectly center the 80% slide, we need to add an offset that accounts for the 10% on one side
-    // This offset is (containerWidth - (slideWidth + margins)) / 2
-    // Or, if we want to ensure the active slide *starts* at the edge of the container before centering:
-    // For centering an 80% slide, we want 10% of container on left and right of the slide track itself.
-    // The track will translate by `index * (slideOuterWidth)`.
-    // To center slide `index`, we need to shift the entire track. 
-    // Let the container be W. Slide is 0.8W + 2*margin.
-    // The first slide (index 0) should be positioned such that its left edge is at 0.1W (approx for peeking).
-    // So, its center is at 0.1W + (0.8W / 2) = 0.5W (if margin is 0)
-    // If margin = 10px, slide is 0.8W. Its content box starts at 10px. Left edge is 0. Translate for index 0 should mean its left margin is at container edge.
-    // Simpler: translate by `-index * slideOuterWidth` and add an initial offset to center the first slide.
-    // This initial offset makes sure the first slide (index 0) is centered when translateX is 0.
-    // This should be `(carouselContainer.offsetWidth - slideOuterWidth) / 2`.
-    const initialOffset = (carouselContainer.offsetWidth - slideOuterWidth) / 2;
+    // Calculate the total size of one slide including its margins (width for desktop, height for mobile)
+    const slideOuterSize = isVertical
+      ? firstSlide.offsetHeight + parseFloat(slideStyle.marginTop) + parseFloat(slideStyle.marginBottom)
+      : firstSlide.offsetWidth + parseFloat(slideStyle.marginLeft) + parseFloat(slideStyle.marginRight);
+
+    currentSlideIndex = index;
+
+    // Translate the track to make the active slide centered in the container
+    currentTranslate = -index * slideOuterSize;
+
+    const containerSize = isVertical ? carouselContainer.offsetHeight : carouselContainer.offsetWidth;
+    const initialOffset = (containerSize - slideOuterSize) / 2;
     currentTranslate += initialOffset;
 
-    prevTranslate = currentTranslate; 
+    prevTranslate = currentTranslate;
 
-    setSliderPosition(); 
-    updateUI(); 
+    setSliderPosition();
+    updateUI();
   }
 
   // --- Update UI (Dots/Arrows) --- 
   function updateUI() {
     slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === currentSlideIndex);
+      slide.classList.toggle('active', i === currentSlideIndex);
     });
     dots.forEach((dot, i) => {
       dot.classList.toggle('active', i === currentSlideIndex);
     });
+
+    // Update mobile details panel (shown on narrow viewports)
+    const mobileTitle = document.querySelector('.portfolio-mobile-title');
+    const mobileDesc = document.querySelector('.portfolio-mobile-description');
+    if (mobileTitle && mobileDesc) {
+      const activeSlide = slides[currentSlideIndex];
+      const titleEl = activeSlide.querySelector('.portfolio-item-title');
+      const descEl = activeSlide.querySelector('.portfolio-item-description');
+      mobileTitle.innerText = titleEl ? titleEl.innerText : '';
+      mobileDesc.innerText = descEl ? descEl.innerText : '';
+    }
+
     prevBtn.disabled = currentSlideIndex === 0;
     nextBtn.disabled = currentSlideIndex === totalSlides - 1;
   }
-  
+
   // --- Set Slider Position --- 
   function setSliderPosition() {
-      carousel.style.transform = `translateX(${currentTranslate}px)`;
+    carousel.style.transform = isVertical
+      ? `translateY(${currentTranslate}px)`
+      : `translateX(${currentTranslate}px)`;
   }
 
   // --- Animation Loop (for smooth drag) --- 
   function animation() {
     setSliderPosition();
-    if(isDragging) requestAnimationFrame(animation);
+    if (isDragging) requestAnimationFrame(animation);
   }
 
   // --- Event Listeners --- 
@@ -504,7 +645,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function dragStart(event) {
     isDragging = true;
-    startPosX = getPositionX(event);
+    startPos = getPointerPosition(event);
     prevTranslate = currentTranslate; // Store position before drag starts
     carousel.style.transition = 'none'; // Disable transition during drag
     carousel.style.cursor = 'grabbing';
@@ -513,8 +654,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function dragAction(event) {
     if (!isDragging) return;
-    const currentPosition = getPositionX(event);
-    const move = currentPosition - startPosX;
+    const currentPosition = getPointerPosition(event);
+    const move = currentPosition - startPos;
     currentTranslate = prevTranslate + move; // Calculate new position based on drag start
     // No need to call setSliderPosition here, animation loop handles it
   }
@@ -525,7 +666,12 @@ document.addEventListener('DOMContentLoaded', () => {
     cancelAnimationFrame(animationID);
 
     const movedBy = currentTranslate - prevTranslate;
-    const threshold = (slides[0].offsetWidth + (parseFloat(getComputedStyle(slides[0]).marginLeft) * 2)) * 0.2;
+
+    const slideSize = isVertical
+      ? slides[0].offsetHeight + (parseFloat(getComputedStyle(slides[0]).marginTop) + parseFloat(getComputedStyle(slides[0]).marginBottom))
+      : slides[0].offsetWidth + (parseFloat(getComputedStyle(slides[0]).marginLeft) + parseFloat(getComputedStyle(slides[0]).marginRight));
+
+    const threshold = slideSize * 0.2;
 
     carousel.style.transition = 'transform 0.5s ease-in-out'; // Re-enable transition
     carousel.style.cursor = 'grab';
@@ -537,31 +683,52 @@ document.addEventListener('DOMContentLoaded', () => {
       goToSlide(currentSlideIndex - 1);
     } else {
       // Snap back to the current slide if threshold not met
-      goToSlide(currentSlideIndex); 
+      goToSlide(currentSlideIndex);
     }
   }
 
   // Helper to get position for both mouse and touch events
-  function getPositionX(event) {
-    return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+  function getPointerPosition(event) {
+    const isMouse = event.type.includes('mouse');
+    if (isVertical) {
+      return isMouse ? event.pageY : (event.touches ? event.touches[0].clientY : event.changedTouches[0].clientY);
+    }
+    return isMouse ? event.pageX : (event.touches ? event.touches[0].clientX : event.changedTouches[0].clientX);
   }
-  
+
   // --- Window Resize Handler --- 
   window.addEventListener('resize', () => {
-      if (slides.length > 0) { // Add this check before accessing slides[0]
+    const wasVertical = isVertical;
+    isVertical = window.innerWidth <= 768;
+
+    if (slides.length > 0) { // Add this check before accessing slides[0]
+      // Only re-layout if orientation mode changes
+      if (wasVertical !== isVertical) {
         goToSlide(currentSlideIndex);
       }
+    }
   });
 
   // --- Initialize --- 
   updateUI(); // Initial UI state
+
   // Set initial position without transition
-  currentTranslate = -currentSlideIndex * carousel.offsetWidth;
+  const firstSlide = slides[0];
+  const slideStyle = getComputedStyle(firstSlide);
+  const slideOuterSize = isVertical
+    ? firstSlide.offsetHeight + parseFloat(slideStyle.marginTop) + parseFloat(slideStyle.marginBottom)
+    : firstSlide.offsetWidth + parseFloat(slideStyle.marginLeft) + parseFloat(slideStyle.marginRight);
+
+  const containerSize = isVertical ? carouselContainer.offsetHeight : carouselContainer.offsetWidth;
+  const initialOffset = (containerSize - slideOuterSize) / 2;
+
+  currentTranslate = -currentSlideIndex * slideOuterSize + initialOffset;
+
   carousel.style.transition = 'none';
   setSliderPosition();
   // Re-enable transition shortly after for future actions
   setTimeout(() => {
-      carousel.style.transition = 'transform 0.5s ease-in-out';
+    carousel.style.transition = 'transform 0.5s ease-in-out';
   }, 50);
 
   // Portfolio Image Hover Effect
@@ -578,11 +745,33 @@ document.addEventListener('DOMContentLoaded', () => {
   // Project Detail Modal Logic
   const projectDetailModal = document.getElementById('project-detail-modal');
   const closeModalBtn = projectDetailModal ? projectDetailModal.querySelector('.modal-close-btn') : null;
+  const modalProjectTitle = projectDetailModal ? projectDetailModal.querySelector('#modal-project-title') : null;
+  const modalProjectImage = projectDetailModal ? projectDetailModal.querySelector('#modal-project-image') : null;
   const seeMorePrompts = document.querySelectorAll('.see-more-prompt .see-more-text');
 
+  // Make each slide tappable/clickable to open the modal
+  if (projectDetailModal) {
+    slides.forEach((slide, index) => {
+      slide.addEventListener('click', () => {
+        openProjectModal(index);
+      });
+    });
+
+    if (closeModalBtn) {
+      closeModalBtn.addEventListener('click', closeProjectModal);
+    }
+
+    // Close modal when clicking outside content wrapper
+    projectDetailModal.addEventListener('click', (event) => {
+      if (event.target === projectDetailModal) {
+        closeProjectModal();
+      }
+    });
+  }
+
   // --- Elements for Project Detail Modal Text Carousel ---
-  const modalProjectTitle = projectDetailModal ? projectDetailModal.querySelector('#modal-project-title') : null;
   const modalMainImage = projectDetailModal ? projectDetailModal.querySelector('#modal-project-image') : null;
+  const modalImageSliderContainer = projectDetailModal ? projectDetailModal.querySelector('.modal-image-slider-container') : null;
   const textCarouselPageDisplay = projectDetailModal ? projectDetailModal.querySelector('.text-carousel-page-display') : null;
   const textCarouselTrack = projectDetailModal ? projectDetailModal.querySelector('.text-carousel-track') : null;
   const textCarouselPrevBtn = projectDetailModal ? projectDetailModal.querySelector('.text-carousel-arrow.prev') : null;
@@ -599,6 +788,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Variables for Text Carousel Dragging ---
   let isTextDragging = false;
   let textDragStartPosX = 0;
+  let textDragStartPosY = 0;
+  let isTextDragAllowed = null; // null = undecided, true = horizontal swipe, false = vertical scroll
   let textDragCurrentTranslateX = 0;
   let textDragAnimationID = 0;
 
@@ -606,43 +797,102 @@ document.addEventListener('DOMContentLoaded', () => {
   const portfolioProjectsData = [
     {
       title: "Project Alpha", shortDescription: "Brief for card Alpha.", mainImage: "assets/img/Web_Design_1.png",
-      modalHeader: "Project Alpha - Details",
-      modalSliderImages: ["assets/img/Web_Design_1.png", "assets/img/MOCKUP1.jpg", "assets/img/App_Design_2.png"],
+      modalHeader: "Web Design",
+      modalHeaderEl: "Σχεδιασμός Ιστοσελίδων",
+      imageContainerClass: "web-screenshot-frame",
+      modalSliderImages: [
+        "assets/img/Web_Design_1.png",
+        "assets/img/Web_Design_2.png",
+        "assets/img/Web_Design_3.png",
+        "assets/img/Web_Design_4.png"
+      ],
       detailedContentPages: [
-        "<h3>Page 1: Alpha Concept</h3><p>Lorem ipsum dolor sit amet... Alpha concept details.</p>",
-        "<h3>Page 2: Alpha Development</h3><p>Cras euismod iaculis mauris... Alpha development process.</p>",
-        "<h3>Page 3: Alpha Outcome</h3><p>Aenean dolor nisi, elementum ac dolor... Alpha results.</p>"
+        "<h3>I developed a university assignment website focused on clear structure, usability, and functional design.</h3>",
+        "<h3>My core skill set includes HTML, CSS, and JavaScript for building responsive and engaging web interfaces.</h3>",
+        "<h3>I also use SQL and database systems to manage data efficiently and support more dynamic web solutions.</h3>"
+      ],
+      detailedContentPagesEl: [
+        "<h3>Ανέπτυξα μια ιστοσελίδα πανεπιστημιακής εργασίας με έμφαση στην καθαρή δομή, τη χρηστικότητα και τον λειτουργικό σχεδιασμό.</h3>",
+        "<h3>Το βασικό μου σύνολο δεξιοτήτων περιλαμβάνει HTML, CSS και JavaScript για responsive και ελκυστικά web interfaces.</h3>",
+        "<h3>Χρησιμοποιώ επίσης SQL και συστήματα βάσεων δεδομένων για αποδοτική διαχείριση δεδομένων και πιο δυναμικές web λύσεις.</h3>"
       ]
     },
     {
       title: "Project Beta", shortDescription: "Brief for card Beta.", mainImage: "assets/img/App_Design_2.png",
-      modalHeader: "Project Beta - Insights",
-      modalSliderImages: ["assets/img/App_Design_2.png", "assets/img/Web_Design_1.png"],
+      modalHeader: "App Design",
+      modalHeaderEl: "Σχεδιασμός Εφαρμογών",
+      imageClass: "app-screenshot",
+      modalSliderImages: [
+        "assets/img/CarInCommon-2.png",
+        "assets/img/CarInCommon-1 .png",
+        "assets/img/App-Design_1.png",
+        "assets/img/App_Design_2.png"
+      ],
       detailedContentPages: [
-        "<h3>Page 1: Beta UX Research</h3><p>Beta project focused heavily on user experience...</p>",
-        "<h3>Page 2: Beta Prototyping</h3><p>Iterative prototyping allowed us to test and refine...</p>"
+        "<h3>I have designed and developed university app projects, including a parking app, a friend finder app, and a shared car platform that helps groups manage vehicle usage, maintenance needs, and related services.</h3>",
+        "<h3>I specialize in Android Studio, using Java and XML to create functional, well-structured, and user-friendly mobile applications.</h3>",
+        "<h3>I also work with Firebase database and storage solutions to support real-time data handling, user information, and app content management.</h3>"
+      ],
+      detailedContentPagesEl: [
+        "<h3>Έχω σχεδιάσει και αναπτύξει πανεπιστημιακά app projects, όπως εφαρμογή στάθμευσης, εφαρμογή εύρεσης φίλων και κοινόχρηστη πλατφόρμα αυτοκινήτου που βοηθά ομάδες να διαχειρίζονται χρήση οχήματος, ανάγκες συντήρησης και σχετικές υπηρεσίες.</h3>",
+        "<h3>Εξειδικεύομαι στο Android Studio, χρησιμοποιώντας Java και XML για λειτουργικές, σωστά δομημένες και φιλικές προς τον χρήστη mobile εφαρμογές.</h3>",
+        "<h3>Εργάζομαι επίσης με Firebase database και storage λύσεις για real-time διαχείριση δεδομένων, πληροφοριών χρηστών και περιεχομένου εφαρμογών.</h3>"
       ]
     },
     {
       title: "Project Gamma", shortDescription: "Brief for card Gamma.", mainImage: "assets/img/MOCKUP1.jpg",
-      modalHeader: "Project Gamma - Technical Deep Dive",
-      modalSliderImages: ["assets/img/MOCKUP1.jpg", "assets/img/Web_Design_1.png", "assets/img/App_Design_2.png", "assets/img/Web_Design_3.jpg"],
+      modalHeader: "Graphic Design",
+      modalHeaderEl: "Γραφιστικός Σχεδιασμός",
+      modalSliderImages: [
+        "assets/img/MOCKUP1.jpg",
+        "assets/img/MOCKUP2-b.jpg",
+        "assets/img/products.png"
+      ],
       detailedContentPages: [
-        "<h3>Page 1: Gamma Architecture</h3><p>The architecture for Project Gamma was complex...</p>",
-        "<h3>Page 2: Gamma Challenges</h3><p>Key challenges included scaling the database...</p>",
-        "<h3>Page 3: Gamma Performance</h3><p>Performance tuning was critical...</p>",
-        "<h3>Page 4: Gamma Future</h3><p>Future plans for Gamma include expanding...</p>"
+        "<h3>I create visual work that transforms ideas into branding and design solutions that support both identity and business presence.</h3>",
+        "<h3>My experience includes university assignments in poster design, product design concepts, and sketch development, which reflects my ability to draw, explore, and communicate ideas effectively.</h3>",
+        "<h3>I work with Photoshop and Illustrator to produce visually strong, concept-based designs across digital and print-oriented projects.</h3>",
+      ],
+      detailedContentPagesEl: [
+        "<h3>Δημιουργώ οπτική δουλειά που μετατρέπει ιδέες σε branding και σχεδιαστικές λύσεις που ενισχύουν τόσο την ταυτότητα όσο και την επιχειρηματική παρουσία.</h3>",
+        "<h3>Η εμπειρία μου περιλαμβάνει πανεπιστημιακές εργασίες σε poster design, product design concepts και ανάπτυξη σκίτσων, κάτι που αντικατοπτρίζει την ικανότητά μου να σχεδιάζω, να εξερευνώ και να επικοινωνώ ιδέες αποτελεσματικά.</h3>",
+        "<h3>Χρησιμοποιώ Photoshop και Illustrator για να παράγω οπτικά δυναμικά, concept-based σχέδια για digital και print-oriented projects.</h3>",
+      ]
+    },
+    {
+      title: "Project Delta", shortDescription: "Brief for card Delta.", mainImage: "assets/img/Emorph (1).jpg",
+      modalHeader: "Product Design",
+      modalHeaderEl: "Σχεδιασμός Προϊόντων",
+      imageContainerClass: "web-screenshot-frame",
+      modalSliderImages: [
+        "assets/img/Emorph (1).jpg",
+        "assets/img/Emorph (2).jpg",
+        "assets/img/Emorph (3).jpg",
+        "assets/img/emorph.png"
+      ],
+      detailedContentPages: [
+        "<h3>I have worked on a range of projects that combined mechanical thinking with the design thinking process to bring products from early ideas to developed concepts.</h3>",
+        "<h3>I have also taken part in design competitions, including a shoe design challenge where my team placed third in Greece.</h3>",
+        "<h3>I use CAD and 3D design tools such as Blender and Creo Parametric to support product development, digital modeling, and visual exploration.</h3>"
+      ],
+      detailedContentPagesEl: [
+        "<h3>Έχω εργαστεί σε μια σειρά από projects που συνδύαζαν μηχανική σκέψη με τη διαδικασία design thinking για να μετατρέψουν προϊόντα από αρχικές ιδέες σε αναπτυγμένες προτάσεις.</h3>",
+        "<h3>Έχω επίσης λάβει μέρος σε διαγωνισμούς design, συμπεριλαμβανομένου ενός shoe design challenge όπου η ομάδα μου κατέκτησε την τρίτη θέση στην Ελλάδα.</h3>",
+        "<h3>Χρησιμοποιώ CAD και 3D design εργαλεία όπως Blender και Creo Parametric για product development, digital modeling και οπτική διερεύνηση.</h3>"
       ]
     }
   ];
 
   function goToTextPage(pageIndex, animate = true) {
     if (!currentProjectData || !textCarouselTrack || !textCarouselPageDisplay) return;
-    const pageCount = currentProjectData.detailedContentPages.length;
+    const pageContent = getCurrentLanguage() === 'el' && currentProjectData.detailedContentPagesEl
+      ? currentProjectData.detailedContentPagesEl
+      : currentProjectData.detailedContentPages;
+    const pageCount = pageContent.length;
     if (pageIndex < 0) pageIndex = 0;
     if (pageIndex >= pageCount) pageIndex = pageCount - 1;
 
-    const viewportWidth = textCarouselPageDisplay.offsetWidth;
+    const viewportWidth = Math.max(textCarouselPageDisplay.offsetWidth, textCarouselPageDisplay.getBoundingClientRect().width, 1);
     currentTextPageIndex = pageIndex;
     textDragCurrentTranslateX = -currentTextPageIndex * viewportWidth;
 
@@ -662,9 +912,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function generateTextCarouselPagesAndDots() {
     if (!currentProjectData || !textCarouselTrack || !textCarouselDotsContainer) return;
+    const pageContent = getCurrentLanguage() === 'el' && currentProjectData.detailedContentPagesEl
+      ? currentProjectData.detailedContentPagesEl
+      : currentProjectData.detailedContentPages;
+
+    // Reset the track position so old translates don't push new pages offscreen
+    textDragCurrentTranslateX = 0;
+    currentTextPageIndex = 0;
+    textCarouselTrack.style.transition = 'none';
+    textCarouselTrack.style.transform = 'translateX(0)';
+
     textCarouselTrack.innerHTML = '';
     textCarouselDotsContainer.innerHTML = '';
-    currentProjectData.detailedContentPages.forEach((pageHTML, index) => {
+    pageContent.forEach((pageHTML, index) => {
       const pageElement = document.createElement('div');
       pageElement.classList.add('text-carousel-page');
       pageElement.innerHTML = pageHTML;
@@ -681,7 +941,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!currentProjectData || !modalMainImage || !currentProjectData.modalSliderImages || currentProjectData.modalSliderImages.length < 2) {
       return; // No slider if not enough images
     }
-    
+
     modalMainImage.style.opacity = '0'; // Start fade out
 
     setTimeout(() => {
@@ -714,19 +974,48 @@ document.addEventListener('DOMContentLoaded', () => {
     modalMainImage.style.opacity = '1';
 
     if (modalImageSliderInterval) clearInterval(modalImageSliderInterval); // Clear existing interval
-    modalImageSliderInterval = setInterval(changeModalImage, 15000); // 15 seconds
+    modalImageSliderInterval = setInterval(changeModalImage, 5000); // 5 seconds
   }
 
   function openProjectModal(projectIndex) {
     if (!projectDetailModal || !portfolioProjectsData[projectIndex]) return;
     currentProjectData = portfolioProjectsData[projectIndex];
     currentTextPageIndex = 0;
-    if (modalProjectTitle) modalProjectTitle.textContent = currentProjectData.modalHeader || 'Project Details';
-    generateTextCarouselPagesAndDots();
-    goToTextPage(currentTextPageIndex, false); // Set initial page without animation
-    startModalImageSlider();
+    if (modalProjectTitle) {
+      modalProjectTitle.textContent = getCurrentLanguage() === 'el'
+        ? (currentProjectData.modalHeaderEl || currentProjectData.modalHeader || 'Project Details')
+        : (currentProjectData.modalHeader || 'Project Details');
+    }
+
+    if (modalMainImage) {
+      if (currentProjectData.imageClass) {
+        modalMainImage.className = 'modal-project-image ' + currentProjectData.imageClass;
+      } else {
+        modalMainImage.className = 'modal-project-image';
+      }
+    }
+
+    if (modalImageSliderContainer) {
+      modalImageSliderContainer.className = 'modal-image-slider-container';
+      if (currentProjectData.imageContainerClass) {
+        modalImageSliderContainer.classList.add(currentProjectData.imageContainerClass);
+      }
+    }
+
+    // Show modal first so layout measurements (offsetWidth) are correct
     projectDetailModal.style.display = 'flex';
     document.body.classList.add('modal-open');
+
+    // Generate pages + position carousel after browser has laid out modal
+    requestAnimationFrame(() => {
+      generateTextCarouselPagesAndDots();
+      // Delay positioning until after the DOM update (widths can be 0 on first pass)
+      requestAnimationFrame(() => {
+        goToTextPage(currentTextPageIndex, false); // Set initial page without animation
+      });
+      startModalImageSlider();
+    });
+
     setTimeout(() => projectDetailModal.classList.add('show'), 10);
   }
 
@@ -739,9 +1028,9 @@ document.addEventListener('DOMContentLoaded', () => {
     modalImageSliderInterval = null;
     currentModalImageIndex = 0;
     if (isTextDragging) { // Reset drag state if modal is closed mid-drag
-        isTextDragging = false;
-        document.body.style.cursor = '';
-        textCarouselTrack.style.transition = 'transform 0.4s ease-in-out';
+      isTextDragging = false;
+      document.body.style.cursor = '';
+      textCarouselTrack.style.transition = 'transform 0.4s ease-in-out';
     }
   }
 
@@ -758,30 +1047,66 @@ document.addEventListener('DOMContentLoaded', () => {
     return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
   }
 
+  function getTextPositionY(event) {
+    return event.type.includes('mouse') ? event.pageY : event.touches[0].clientY;
+  }
+
   function textDragStart(event) {
     if (!currentProjectData) return;
-    // Allow scrolling within individual .text-carousel-page if target is inside it and content overflows
-    const targetPage = event.target.closest('.text-carousel-page');
-    if (targetPage && targetPage.scrollHeight > targetPage.clientHeight && event.type.includes('mouse')) {
-        // If a mouse event, and the page itself is scrollable, don't initiate horizontal drag
-        // This allows vertical scroll on desktop. For touch, it might still drag horizontally.
-        // More complex logic needed for perfect nested scroll/drag priority.
-        if (event.offsetX < targetPage.clientWidth - 20) { // Heuristic: Don't start drag if near potential scrollbar
-             // return; // Decided to allow drag always, user can scroll a page then swipe.
-        }
-    }
 
-    isTextDragging = true;
     textDragStartPosX = getTextPositionX(event);
+    textDragStartPosY = getTextPositionY(event);
+    isTextDragAllowed = null;
+    isTextDragging = true;
     textDragAnimationID = requestAnimationFrame(textDragAnimationLoop);
-    textCarouselTrack.style.transition = 'none'; // wichtig for direct drag feel
+    textCarouselTrack.style.transition = 'none';
     document.body.style.cursor = 'grabbing';
   }
 
   function textDragAnimationLoop() {
     if (isTextDragging) {
-        textCarouselTrack.style.transform = `translateX(${textDragCurrentTranslateX}px)`;
-        requestAnimationFrame(textDragAnimationLoop);
+      textCarouselTrack.style.transform = `translateX(${textDragCurrentTranslateX}px)`;
+      requestAnimationFrame(textDragAnimationLoop);
+    }
+  }
+
+  function textDragMove(event) {
+    if (!isTextDragging || !currentProjectData) return;
+
+    const currentX = getTextPositionX(event);
+    const currentY = getTextPositionY(event);
+    const diffX = currentX - textDragStartPosX;
+    const diffY = currentY - textDragStartPosY;
+
+    // On touch devices, determine whether the user intends a vertical scroll (within the page)
+    // or a horizontal swipe (between carousel pages).
+    if (isTextDragAllowed === null) {
+      if (Math.abs(diffY) > Math.abs(diffX) + 6) {
+        // Vertical movement wins: stop drag handling and allow native scroll
+        isTextDragging = false;
+        document.body.style.cursor = '';
+        cancelAnimationFrame(textDragAnimationID);
+        return;
+      }
+
+      if (Math.abs(diffX) > Math.abs(diffY) + 6) {
+        isTextDragAllowed = true;
+      } else {
+        // Not enough movement to decide; keep waiting for more movement
+        return;
+      }
+    }
+
+    if (!isTextDragAllowed) return;
+
+    const baseTranslateX = -currentTextPageIndex * textCarouselPageDisplay.offsetWidth;
+    textDragCurrentTranslateX = baseTranslateX + diffX;
+  }
+
+  function textDragAnimationLoop() {
+    if (isTextDragging) {
+      textCarouselTrack.style.transform = `translateX(${textDragCurrentTranslateX}px)`;
+      requestAnimationFrame(textDragAnimationLoop);
     }
   }
 
@@ -798,6 +1123,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function textDragEnd() {
     if (!isTextDragging || !currentProjectData) return;
     isTextDragging = false;
+    isTextDragAllowed = null;
     cancelAnimationFrame(textDragAnimationID);
     document.body.style.cursor = '';
     textCarouselTrack.style.transition = 'transform 0.4s ease-in-out';
@@ -820,13 +1146,13 @@ document.addEventListener('DOMContentLoaded', () => {
     textCarouselPageDisplay.addEventListener('touchstart', textDragStart, { passive: true });
   }
   document.addEventListener('mousemove', textDragMove);
-  document.addEventListener('touchmove', textDragMove, { passive: true }); 
+  document.addEventListener('touchmove', textDragMove, { passive: true });
   document.addEventListener('mouseup', textDragEnd);
   document.addEventListener('touchend', textDragEnd);
 
   // Prevent image dragging interference (if any images are inside text pages)
   if (textCarouselTrack) {
-      textCarouselTrack.ondragstart = () => false;
+    textCarouselTrack.ondragstart = () => false;
   }
 
   // --- Existing Modal Trigger and Close Logic ---
@@ -860,22 +1186,186 @@ document.addEventListener('DOMContentLoaded', () => {
       // For image slider (already present)
       // For text carousel, readjust position without animation if viewport width changed
       if (textCarouselTrack && currentProjectData) {
-          goToTextPage(currentTextPageIndex, false);
+        goToTextPage(currentTextPageIndex, false);
       }
     }
   });
 
 });
 
+// === Tool Logo Tooltip Functionality ===
+document.addEventListener('DOMContentLoaded', function() {
+  const tooltip = document.getElementById('carousel-tooltip');
+  const toolsLogosContainer = document.querySelector('.about-tools-logos');
+  
+  if (!tooltip || !toolsLogosContainer) return;
+  
+  let tooltipTimeout = null;
+  
+  // Use event delegation to handle dynamically loaded logos
+  toolsLogosContainer.addEventListener('mouseenter', function(e) {
+    const logo = e.target.closest('.tool-logo');
+    if (logo) {
+      const altText = logo.getAttribute('alt');
+      if (altText) {
+        // Clear any existing timeout
+        if (tooltipTimeout) {
+          clearTimeout(tooltipTimeout);
+        }
+        
+        // Set tooltip content using the alt attribute
+        tooltip.textContent = altText;
+        
+        // Show tooltip with slight delay for better UX
+        tooltipTimeout = setTimeout(() => {
+          tooltip.classList.add('show');
+          updateTooltipPosition(e);
+        }, 200);
+      }
+    }
+  }, true); // Use capture to ensure we catch the event
+  
+  toolsLogosContainer.addEventListener('mouseleave', function(e) {
+    const logo = e.target.closest('.tool-logo');
+    if (logo) {
+      // Clear timeout and hide tooltip
+      if (tooltipTimeout) {
+        clearTimeout(tooltipTimeout);
+        tooltipTimeout = null;
+      }
+      tooltip.classList.remove('show');
+    }
+  }, true);
+  
+  toolsLogosContainer.addEventListener('mousemove', function(e) {
+    const logo = e.target.closest('.tool-logo');
+    if (logo && tooltip.classList.contains('show')) {
+      updateTooltipPosition(e);
+    }
+  }, true);
+  
+  // Hide tooltip when mouse leaves the entire tools logos area
+  toolsLogosContainer.addEventListener('mouseleave', function(e) {
+    // Only hide if not leaving to another logo within the container
+    if (!e.relatedTarget || !e.relatedTarget.closest('.tool-logo')) {
+      if (tooltipTimeout) {
+        clearTimeout(tooltipTimeout);
+        tooltipTimeout = null;
+      }
+      tooltip.classList.remove('show');
+    }
+  });
+  
+  function updateTooltipPosition(e) {
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    
+    // Position tooltip above the cursor
+    tooltip.style.left = mouseX + 'px';
+    tooltip.style.top = mouseY + 'px';
+  }
+  
+  // Also try to attach to any existing logos immediately
+  function attachToExistingLogos() {
+    const existingLogos = document.querySelectorAll('.tool-logo');
+    existingLogos.forEach(logo => {
+      // Remove any existing listeners to avoid duplicates
+      logo.replaceWith(logo.cloneNode(true));
+    });
+    
+    // Re-attach to fresh logos
+    const freshLogos = document.querySelectorAll('.tool-logo');
+    freshLogos.forEach(logo => {
+      logo.addEventListener('mouseenter', function(e) {
+        const altText = this.getAttribute('alt');
+        if (altText) {
+          if (tooltipTimeout) clearTimeout(tooltipTimeout);
+          tooltip.textContent = altText;
+          tooltipTimeout = setTimeout(() => {
+            tooltip.classList.add('show');
+            updateTooltipPosition(e);
+          }, 200);
+        }
+      });
+      
+      logo.addEventListener('mouseleave', function() {
+        if (tooltipTimeout) {
+          clearTimeout(tooltipTimeout);
+          tooltipTimeout = null;
+        }
+        tooltip.classList.remove('show');
+      });
+      
+      logo.addEventListener('mousemove', function(e) {
+        if (tooltip.classList.contains('show')) {
+          updateTooltipPosition(e);
+        }
+      });
+    });
+  }
+  
+  // Initial attachment
+  attachToExistingLogos();
+  
+  // Re-attach whenever logos might change (after carousel animations)
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.type === 'childList' && mutation.target.classList.contains('about-tools-logos')) {
+        attachToExistingLogos();
+      }
+    });
+  });
+  
+  if (toolsLogosContainer) {
+    observer.observe(toolsLogosContainer, {
+      childList: true,
+      subtree: true
+    });
+  }
+});
+
+// Simple Tool Logo Tooltips
+setTimeout(function() {
+  const tooltip = document.createElement('div');
+  tooltip.style.cssText = 'position:fixed;background:#000;color:#fff;padding:12px 20px;border-radius:8px;z-index:9999;opacity:0;transition:opacity 0.2s;font-family:"Berlinerins Trial", Arial, sans-serif;font-size:20px;';
+  document.body.appendChild(tooltip);
+  
+  const logos = document.querySelectorAll('.tool-logo');
+  console.log('Found logos:', logos.length);
+  
+  logos.forEach((logo, index) => {
+    console.log(`Logo ${index}:`, logo.alt);
+    
+    // Enable pointer events on the logos
+    logo.style.pointerEvents = 'auto';
+    
+    logo.onmouseover = function() {
+      console.log('Mouse over:', this.alt);
+      tooltip.textContent = this.alt;
+      tooltip.style.opacity = '1';
+    };
+    
+    logo.onmouseout = function() {
+      console.log('Mouse out');
+      tooltip.style.opacity = '0';
+    };
+    
+    logo.onmousemove = function(e) {
+      tooltip.style.left = e.clientX + 10 + 'px';
+      tooltip.style.top = e.clientY - 30 + 'px';
+    };
+  });
+}, 500);
+
 // Scroll-based fade between Sections
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function () {
   if (ignoreScroll) return;
 
   const mainContent = document.getElementById('main-content');
   const aboutMe = document.getElementById('about-me');
   const portfolioSection = document.getElementById('portfolio');
   const contactSection = document.getElementById('contact'); // Get contact section
-  
+
   if (!mainContent || !aboutMe || !portfolioSection || !contactSection) return; // Check contact section
 
   const mainRect = mainContent.getBoundingClientRect();
@@ -959,89 +1449,89 @@ window.addEventListener('scroll', function() {
 // Adjust showAbout, showMain, and MyWorkBtn click to primarily handle scrolling
 
 function scrollToSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-        ignoreScroll = true; // Prevent scroll listener interference during animation
-        smoothScrollTo(section, 900);
-        // The scroll listener will handle the fade
-        // We set the final state after the scroll animation
-        setTimeout(() => {
-            const mainContent = document.getElementById('main-content');
-            const aboutMe = document.getElementById('about-me');
-            const portfolioSection = document.getElementById('portfolio');
-            const contactSection = document.getElementById('contact'); // Get contact section
-            
-            if (mainContent && aboutMe && portfolioSection && contactSection) {
-                mainContent.style.opacity = sectionId === 'main-content' ? '1' : '0';
-                aboutMe.style.opacity = sectionId === 'about-me' ? '1' : '0';
-                portfolioSection.style.opacity = sectionId === 'portfolio' ? '1' : '0';
-                contactSection.style.opacity = sectionId === 'contact' ? '1' : '0'; // Set contact opacity
+  const section = document.getElementById(sectionId);
+  if (section) {
+    ignoreScroll = true; // Prevent scroll listener interference during animation
+    smoothScrollTo(section, 900);
+    // The scroll listener will handle the fade
+    // We set the final state after the scroll animation
+    setTimeout(() => {
+      const mainContent = document.getElementById('main-content');
+      const aboutMe = document.getElementById('about-me');
+      const portfolioSection = document.getElementById('portfolio');
+      const contactSection = document.getElementById('contact'); // Get contact section
 
-                mainContent.style.pointerEvents = sectionId === 'main-content' ? 'auto' : 'none';
-                aboutMe.style.pointerEvents = sectionId === 'about-me' ? 'auto' : 'none';
-                portfolioSection.style.pointerEvents = sectionId === 'portfolio' ? 'auto' : 'none';
-                contactSection.style.pointerEvents = sectionId === 'contact' ? 'auto' : 'none'; // Set contact pointer-events
+      if (mainContent && aboutMe && portfolioSection && contactSection) {
+        mainContent.style.opacity = sectionId === 'main-content' ? '1' : '0';
+        aboutMe.style.opacity = sectionId === 'about-me' ? '1' : '0';
+        portfolioSection.style.opacity = sectionId === 'portfolio' ? '1' : '0';
+        contactSection.style.opacity = sectionId === 'contact' ? '1' : '0'; // Set contact opacity
 
-                // Simplified Z-Index logic: Target section highest, others lower
-                mainContent.style.zIndex = sectionId === 'main-content' ? '4' : '1';
-                aboutMe.style.zIndex = sectionId === 'about-me' ? '4' : '1';
-                portfolioSection.style.zIndex = sectionId === 'portfolio' ? '4' : '1';
-                contactSection.style.zIndex = sectionId === 'contact' ? '4' : '1'; 
-            }
-            ignoreScroll = false;
-        }, 950); // Match scroll duration + buffer
-    }
+        mainContent.style.pointerEvents = sectionId === 'main-content' ? 'auto' : 'none';
+        aboutMe.style.pointerEvents = sectionId === 'about-me' ? 'auto' : 'none';
+        portfolioSection.style.pointerEvents = sectionId === 'portfolio' ? 'auto' : 'none';
+        contactSection.style.pointerEvents = sectionId === 'contact' ? 'auto' : 'none'; // Set contact pointer-events
+
+        // Simplified Z-Index logic: Target section highest, others lower
+        mainContent.style.zIndex = sectionId === 'main-content' ? '4' : '1';
+        aboutMe.style.zIndex = sectionId === 'about-me' ? '4' : '1';
+        portfolioSection.style.zIndex = sectionId === 'portfolio' ? '4' : '1';
+        contactSection.style.zIndex = sectionId === 'contact' ? '4' : '1';
+      }
+      ignoreScroll = false;
+    }, 950); // Match scroll duration + buffer
+  }
 }
 
 function showAbout() {
-    scrollToSection('about-me');
+  scrollToSection('about-me');
 }
 
 function showMain() {
-    scrollToSection('main-content');
+  scrollToSection('main-content');
 }
 
 // Update MY WORK button listener to use scrollToSection
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const myWorkBtn = document.querySelector('.my-work-btn');
   if (myWorkBtn) {
-    myWorkBtn.addEventListener('click', function(e) {
+    myWorkBtn.addEventListener('click', function (e) {
       e.preventDefault();
       scrollToSection('portfolio');
     });
   }
-  
+
   // Toolbar link for MY WORK
   const workNavLink = document.querySelector('.toolbar-menu a[href="#work"]');
   if (workNavLink) {
-      workNavLink.addEventListener('click', function(e) {
-          e.preventDefault();
-          scrollToSection('portfolio');
-      });
+    workNavLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      scrollToSection('portfolio');
+    });
   }
-  
+
   // Toolbar link for ABOUT
   const aboutNavLink = document.querySelector('.toolbar-menu a[href="#about"]');
   if (aboutNavLink) {
-      aboutNavLink.addEventListener('click', function(e) {
-          e.preventDefault();
-          scrollToSection('about-me');
-      });
+    aboutNavLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      scrollToSection('about-me');
+    });
   }
-  
+
   // Toolbar link for HOME
   const homeNavLink = document.querySelector('.toolbar-menu a[href="#hero"]');
   if (homeNavLink) {
-      homeNavLink.addEventListener('click', function(e) {
-          e.preventDefault();
-          scrollToSection('main-content');
-      });
+    homeNavLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      scrollToSection('main-content');
+    });
   }
 
   // CONTACT ME button in Portfolio section
   const portfolioContactBtn = document.querySelector('.portfolio-content .contact-btn');
   if (portfolioContactBtn) {
-    portfolioContactBtn.addEventListener('click', function(e) {
+    portfolioContactBtn.addEventListener('click', function (e) {
       e.preventDefault();
       scrollToSection('contact'); // Target the contact section ID
     });
@@ -1050,15 +1540,15 @@ document.addEventListener('DOMContentLoaded', function() {
   // Toolbar link for CONTACT
   const contactNavLink = document.querySelector('.toolbar-menu a[href="#contact"]');
   if (contactNavLink) {
-      contactNavLink.addEventListener('click', function(e) {
-          e.preventDefault();
-          scrollToSection('contact');
-      });
+    contactNavLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      scrollToSection('contact');
+    });
   }
 });
 
 // Initial setup on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const mainContent = document.getElementById('main-content');
   const aboutMe = document.getElementById('about-me');
   const portfolioSection = document.getElementById('portfolio');
@@ -1073,7 +1563,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (aboutMe) aboutMe.style.pointerEvents = 'none';
   if (portfolioSection) portfolioSection.style.pointerEvents = 'none';
   if (contactSection) contactSection.style.pointerEvents = 'none'; // Initialize contact pointer-events
-  
+
   if (mainContent) mainContent.style.zIndex = '4'; // Highest z-index
   if (aboutMe) aboutMe.style.zIndex = '3';
   if (portfolioSection) portfolioSection.style.zIndex = '2';
@@ -1092,60 +1582,470 @@ if (backToTopButton) {
   });
 }
 
-// --- Generate Slides and Dots from Data ---
-function generatePortfolioItems() {
-  carousel.innerHTML = ''; // Clear existing slides
-  dotsContainer.innerHTML = ''; // Clear existing dots
+// // --- Generate Slides and Dots from Data ---
+// function generatePortfolioItems() {
+//   carousel.innerHTML = ''; // Clear existing slides
+//   dotsContainer.innerHTML = ''; // Clear existing dots
 
-  portfolioProjects.forEach((project, index) => {
-    // Create Slide
-    const slide = document.createElement('div');
-    slide.classList.add('portfolio-slide');
+//   portfolioProjects.forEach((project, index) => {
+//     // Create Slide
+//     const slide = document.createElement('div');
+//     slide.classList.add('portfolio-slide');
 
-    // Create Image Container & Image
-    const imageContainer = document.createElement('div');
-    imageContainer.classList.add('portfolio-image-container');
-    const img = document.createElement('img');
-    img.src = project.image;
-    img.alt = project.title + " Image";
-    img.classList.add('portfolio-image-item');
-    imageContainer.appendChild(img);
-    // Append Image Container to Slide FIRST
-    slide.appendChild(imageContainer);
+//     // Create Image Container & Image
+//     const imageContainer = document.createElement('div');
+//     imageContainer.classList.add('portfolio-image-container');
+//     const img = document.createElement('img');
+//     img.src = project.image;
+//     img.alt = project.title + " Image";
+//     img.classList.add('portfolio-image-item');
+//     imageContainer.appendChild(img);
+//     // Append Image Container to Slide FIRST
+//     slide.appendChild(imageContainer);
 
-    // Create Text Content Container (now separate)
-    const textContent = document.createElement('div');
-    textContent.classList.add('portfolio-text-content'); // Removed 'overlay' class here
-    const title = document.createElement('h3');
-    title.classList.add('portfolio-item-title');
-    title.textContent = project.title; // Use project title
-    const description = document.createElement('p');
-    description.classList.add('portfolio-item-description');
-    description.textContent = project.description; // Use project description
-    textContent.appendChild(title);
-    textContent.appendChild(description);
-    // Append Text Content to Slide SECOND
-    slide.appendChild(textContent); 
+//     // Create Text Content Container (now separate)
+//     const textContent = document.createElement('div');
+//     textContent.classList.add('portfolio-text-content'); // Removed 'overlay' class here
+//     const title = document.createElement('h3');
+//     title.classList.add('portfolio-item-title');
+//     title.textContent = project.title; // Use project title
+//     const description = document.createElement('p');
+//     description.classList.add('portfolio-item-description');
+//     description.textContent = project.description; // Use project description
+//     textContent.appendChild(title);
+//     textContent.appendChild(description);
+//     // Append Text Content to Slide SECOND
+//     slide.appendChild(textContent);
 
-    carousel.appendChild(slide);
+//     carousel.appendChild(slide);
 
-    // Create Dot
-    const dot = document.createElement('button');
-    dot.classList.add('portfolio-dot');
-    dot.setAttribute('aria-label', `Go to project ${index + 1}`);
-    dot.addEventListener('click', () => goToSlide(index));
-    dotsContainer.appendChild(dot);
+//     // Create Dot
+//     const dot = document.createElement('button');
+//     dot.classList.add('portfolio-dot');
+//     dot.setAttribute('aria-label', `Go to project ${index + 1}`);
+//     dot.addEventListener('click', () => goToSlide(index));
+//     dotsContainer.appendChild(dot);
+//   });
+
+//   // Re-initialize slides array and UI after generation
+//   slides = document.querySelectorAll('.portfolio-slide');
+//   totalSlides = slides.length;
+//   dots = dotsContainer.querySelectorAll('.portfolio-dot');
+//   if (totalSlides > 0) {
+//     currentSlideIndex = 0; // Reset index
+//     goToSlide(currentSlideIndex);
+//   } else {
+//     updateUI(); // Update arrows if no slides
+//   }
+// }
+// generatePortfolioItems(); // Call the function to build slides initially
+
+// --- Button Splash Ripple Effect ---
+document.querySelectorAll('.about-btn').forEach(button => {
+  button.addEventListener('click', function (e) {
+    const href = this.getAttribute('href');
+
+    // The #about button has its own delayed scroll logic above. 
+    // For other buttons (like "MY WORK" going to #work), we prevent default and handle it here.
+    if (href && href !== '#about' && href !== '#hero') {
+      e.preventDefault();
+    }
+
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const ripple = document.createElement('span');
+    ripple.classList.add('splash-ripple');
+
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width = ripple.style.height = `${size}px`;
+    ripple.style.left = `${x - size / 2}px`;
+    ripple.style.top = `${y - size / 2}px`;
+
+    this.appendChild(ripple);
+
+    // Remove the ripple element after the CSS animation finishes (0.6s)
+    setTimeout(() => {
+      ripple.remove();
+    }, 600);
+
+    // Delay scroll to allow splash to visibly expand before viewport moves
+    if (href && href !== '#about' && href !== '#hero') {
+      setTimeout(() => {
+        const target = document.querySelector(href);
+        if (target) {
+          smoothScrollTo(target, 900);
+        }
+      }, 350);
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  const langIcons = document.querySelectorAll('.lang-icon');
+  const aboutSection = document.getElementById('about-me');
+  const englishIcon = document.querySelector('.lang-icon[alt="English"]');
+
+  function renderLocalizedHeroName(lang) {
+    const heroNameElement = document.querySelector('.hero-name');
+    if (!heroNameElement) return;
+
+    const textMarkup = heroNameElement.getAttribute(lang === 'el' ? 'data-greek' : 'data-english');
+    if (!textMarkup) return;
+
+    const rendered = textMarkup
+      .split('')
+      .map(char => {
+        if (char === ' ' || char === '\n') return '<span class="hero-letter">&nbsp;</span>';
+        if (char === '<' || char === '>') return char;
+        return `<span class="hero-letter">${char}</span>`;
+      })
+      .join('')
+      .replace(/<span class="hero-letter">&lt;<\/span>br<span class="hero-letter">&gt;<\/span>/g, '<br>');
+
+    heroNameElement.innerHTML = rendered;
+  }
+
+  function applyLanguage(lang) {
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('[data-greek][data-english]').forEach(element => {
+      if (element.classList.contains('hero-name')) {
+        return;
+      }
+
+      const nextText = element.getAttribute(lang === 'el' ? 'data-greek' : 'data-english');
+      if (!nextText) return;
+
+      if (nextText.includes('<br>')) {
+        element.innerHTML = nextText;
+      } else {
+        element.textContent = nextText;
+      }
+    });
+
+    renderLocalizedHeroName(lang);
+
+    if (typeof updateCards === 'function') {
+      updateCards();
+    }
+
+    const activeSlide = document.querySelector('.portfolio-slide.active');
+    const mobileTitle = document.querySelector('.portfolio-mobile-title');
+    const mobileDesc = document.querySelector('.portfolio-mobile-description');
+    if (activeSlide && mobileTitle && mobileDesc) {
+      const titleEl = activeSlide.querySelector('.portfolio-item-title');
+      const descEl = activeSlide.querySelector('.portfolio-item-description');
+      mobileTitle.innerText = titleEl ? titleEl.innerText : '';
+      mobileDesc.innerText = descEl ? descEl.innerText : '';
+    }
+
+    if (typeof currentProjectData !== 'undefined' && currentProjectData && typeof generateTextCarouselPagesAndDots === 'function' && typeof goToTextPage === 'function') {
+      if (typeof modalProjectTitle !== 'undefined' && modalProjectTitle) {
+        modalProjectTitle.textContent = lang === 'el'
+          ? (currentProjectData.modalHeaderEl || currentProjectData.modalHeader || 'Project Details')
+          : (currentProjectData.modalHeader || 'Project Details');
+      }
+      const pageIndex = typeof currentTextPageIndex !== 'undefined' ? currentTextPageIndex : 0;
+      generateTextCarouselPagesAndDots();
+      goToTextPage(pageIndex, false);
+    }
+  }
+
+  function updateInactiveIconFilters() {
+    const isPastAbout = aboutSection && window.scrollY > (aboutSection.offsetTop + aboutSection.offsetHeight);
+
+    langIcons.forEach(icon => {
+      if (icon.classList.contains('active')) {
+        icon.style.filter = 'none';
+        return;
+      }
+
+      icon.classList.toggle('black', !!isPastAbout);
+      icon.style.filter = isPastAbout
+        ? 'brightness(0) contrast(3)'
+        : 'brightness(0) invert(1) contrast(3)';
+    });
+  }
+
+  function activateLanguage(icon) {
+    langIcons.forEach(otherIcon => {
+      const isActive = otherIcon === icon;
+      otherIcon.classList.toggle('active', isActive);
+      otherIcon.src = otherIcon.getAttribute(isActive ? 'data-active' : 'data-default');
+    });
+
+    updateInactiveIconFilters();
+    applyLanguage(icon.getAttribute('alt') === 'Greek' ? 'el' : 'en');
+  }
+
+  langIcons.forEach(icon => {
+    icon.addEventListener('click', function (event) {
+      event.preventDefault();
+      activateLanguage(this);
+    });
   });
 
-  // Re-initialize slides array and UI after generation
-  slides = document.querySelectorAll('.portfolio-slide');
-  totalSlides = slides.length;
-  dots = dotsContainer.querySelectorAll('.portfolio-dot');
-  if (totalSlides > 0) {
-      currentSlideIndex = 0; // Reset index
-      goToSlide(currentSlideIndex);
+  window.addEventListener('scroll', updateInactiveIconFilters);
+
+  if (englishIcon) {
+    activateLanguage(englishIcon);
   } else {
-      updateUI(); // Update arrows if no slides
+    applyLanguage('en');
   }
-}
-generatePortfolioItems(); // Call the function to build slides initially
+});
+
+// === Language Icon Switcher ===
+document.addEventListener('DOMContentLoaded', function() {
+  const langIcons = document.querySelectorAll('.lang-icon');
+  const aboutSection = document.getElementById('about-me');
+  let currentLang = 'en'; // Default language is English
+
+  function renderHeroNameWithLetters(markup) {
+    return markup
+      .split('')
+      .map(char => {
+        if (char === ' ' || char === '\n') return '<span class="hero-letter">&nbsp;</span>';
+        if (char === '<' || char === '>') return char;
+        return `<span class="hero-letter">${char}</span>`;
+      })
+      .join('')
+      .replace(/<span class="hero-letter">&lt;<\/span>br<span class="hero-letter">&gt;<\/span>/g, '<br>');
+  }
+  
+  // Set English flag as active by default
+  const englishIcon = document.querySelector('[alt="English"]');
+  if (englishIcon) {
+    englishIcon.classList.add('active');
+    englishIcon.src = englishIcon.getAttribute('data-active');
+    englishIcon.style.filter = 'none';
+  }
+  
+  // Language switching function
+  function switchLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    updateAllTexts(lang);
+    updateDynamicContentLanguage(lang);
+  }
+  
+  // Function to update all texts based on current language
+  function updateAllTexts(lang) {
+    const translatableElements = document.querySelectorAll('[data-greek]');
+    
+    translatableElements.forEach(element => {
+      
+      // Skip about description elements as they're handled by updateAboutDescription
+      if (element.parentElement.classList.contains('about-description')) {
+        console.log('Skipping about description element');
+        return;
+      }
+      
+      if (lang === 'el') {
+        // Switch to Greek
+        const greekText = element.getAttribute('data-greek');
+        if (element.classList.contains('hero-name')) {
+          element.innerHTML = renderHeroNameWithLetters(greekText);
+        } else if (element.tagName === 'SPAN' && greekText.includes('<br>')) {
+          // Handle multi-line text like hero name
+          element.innerHTML = greekText;
+        } else {
+          element.textContent = greekText;
+        }
+      } else {
+        // Switch to English (restore original)
+        if (element.tagName === 'SPAN' && element.classList.contains('hero-name')) {
+          const englishMarkup = element.getAttribute('data-english') || 'ARGYRIS<br>SERGIANNIS';
+          element.innerHTML = renderHeroNameWithLetters(englishMarkup);
+        } else if (element.classList.contains('about-btn')) {
+          // Restore original English for about buttons
+          if (element.classList.contains('my-work-btn')) {
+            element.textContent = 'MY WORK';
+          } else {
+            element.textContent = 'ABOUT ME';
+          }
+        } else if (element.tagName === 'A') {
+          // Restore original English for navigation links
+          const navTranslations = {
+            'ΑΡΧΙΚΗ': 'HOME',
+            'ΣΧΕΤΙΚΑ': 'ABOUT',
+            'ΔΟΥΛΕΙΑ': 'MY WORK',
+            'ΕΠΙΚΟΙΝΩΝΙΑ': 'CONTACT'
+          };
+          const currentText = element.textContent;
+          element.textContent = navTranslations[currentText] || currentText;
+        } else if (element.tagName === 'H2' || element.tagName === 'H3') {
+          // Restore original English for headings
+          const headingTranslations = {
+            'ΣΧΕΔΙΑΣΤΙΚΗ ΕΠΙΚΕΝΤΡΩΣΗ': 'DESIGN FOCUS',
+            'ΣΧΕΔΙΑΣΤΙΚΗ ΕΠΙΚΕΝΤΡΩΣΗ UI/UX': 'UI/UX DESIGN FOCUS',
+            'Η ΔΟΥΛΕΙΑ ΜΟΥ': 'MY WORK'
+          };
+          const currentText = element.textContent;
+          element.textContent = headingTranslations[currentText] || currentText;
+        } else if (element.tagName === 'P') {
+          // Skip about description paragraphs as they're handled by carousel
+          if (!element.parentElement.classList.contains('about-description')) {
+            element.textContent = 'SPECIALIZING IN USER-CENTRIC PRODUCT DESIGN, I CRAFT INTUITIVE, ENGAGING EXPERIENCES THAT BLEND CREATIVITY WITH FUNCTIONAL EXCELLENCE, TRANSFORMING COMPLEX IDEAS INTO ELEGANT, USER-FRIENDLY SOLUTIONS THAT RESONATE WITH PEOPLE.';
+          }
+        }
+      }
+    });
+  }
+  
+  // Legacy helper (now disabled) – titles/descriptions are driven directly
+  // by the main carousel logic to avoid mismatches with icons.
+  function updateAboutDescription() {
+    return;
+  }
+
+  function updateAllTexts(lang) {
+    const translatableElements = document.querySelectorAll('[data-greek][data-english]');
+
+    translatableElements.forEach(element => {
+      const nextText = element.getAttribute(lang === 'el' ? 'data-greek' : 'data-english');
+      if (!nextText) return;
+
+      if (nextText.includes('<br>')) {
+        element.innerHTML = nextText;
+      } else {
+        element.textContent = nextText;
+      }
+    });
+  }
+
+  function updateDynamicContentLanguage(lang) {
+    if (typeof updateCards === 'function') {
+      updateCards();
+    }
+
+    const mobileTitle = document.querySelector('.portfolio-mobile-title');
+    const mobileDesc = document.querySelector('.portfolio-mobile-description');
+    const activeSlide = document.querySelector('.portfolio-slide.active');
+    if (activeSlide && mobileTitle && mobileDesc) {
+      const titleEl = activeSlide.querySelector('.portfolio-item-title');
+      const descEl = activeSlide.querySelector('.portfolio-item-description');
+      mobileTitle.innerText = titleEl ? titleEl.innerText : '';
+      mobileDesc.innerText = descEl ? descEl.innerText : '';
+    }
+
+    if (currentProjectData && typeof generateTextCarouselPagesAndDots === 'function' && typeof goToTextPage === 'function') {
+      const currentIndex = currentTextPageIndex;
+      if (modalProjectTitle) {
+        modalProjectTitle.textContent = lang === 'el'
+          ? (currentProjectData.modalHeaderEl || currentProjectData.modalHeader || 'Project Details')
+          : (currentProjectData.modalHeader || 'Project Details');
+      }
+      generateTextCarouselPagesAndDots();
+      goToTextPage(currentIndex, false);
+    }
+  }
+  
+  // Monitor carousel changes to maintain language
+  function setupCarouselLanguageMonitor() {
+    const carousel = document.querySelector('.about-me .carousel');
+    if (carousel) {
+      // Create a MutationObserver to watch for changes in the carousel
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'childList' || mutation.type === 'characterData') {
+            // Re-apply language settings after carousel change
+            setTimeout(() => {
+              updateAboutDescription();
+              updateAllTexts(currentLang);
+              updateDynamicContentLanguage(currentLang);
+            }, 50);
+          }
+        });
+      });
+      
+      // Start observing the carousel for changes
+      observer.observe(carousel, {
+        childList: true,
+        subtree: true,
+        characterData: true
+      });
+    }
+  }
+  
+  // Initialize carousel monitor
+  setupCarouselLanguageMonitor();
+
+  document.documentElement.lang = currentLang;
+  
+  // Initial update of about description
+  updateAboutDescription();
+  updateAllTexts(currentLang);
+  updateDynamicContentLanguage(currentLang);
+  
+  langIcons.forEach(icon => {
+    // Mouse enter - show active state with actual colors
+    icon.addEventListener('mouseenter', function() {
+      if (!this.classList.contains('active')) {
+        this.src = this.getAttribute('data-active');
+        this.style.filter = 'none';
+      }
+    });
+    
+    // Mouse leave - return to default state with appropriate filter
+    icon.addEventListener('mouseleave', function() {
+      if (!this.classList.contains('active')) {
+        this.src = this.getAttribute('data-default');
+        // Restore appropriate filter based on scroll position
+        if (this.classList.contains('black')) {
+          this.style.filter = 'brightness(0) contrast(3)';
+        } else {
+          this.style.filter = 'brightness(0) invert(1) contrast(3)';
+        }
+      }
+    });
+    
+    // Click - set permanent active state and switch language
+    icon.addEventListener('click', function() {
+      // Remove active class from all icons and reset to default images
+      langIcons.forEach(otherIcon => {
+        otherIcon.classList.remove('active');
+        otherIcon.src = otherIcon.getAttribute('data-default');
+        // Restore appropriate filter for each icon
+        if (otherIcon.classList.contains('black')) {
+          otherIcon.style.filter = 'brightness(0) contrast(3)';
+        } else {
+          otherIcon.style.filter = 'brightness(0) invert(1) contrast(3)';
+        }
+      });
+      
+      // Add active class and set active image with no filter
+      this.classList.add('active');
+      this.src = this.getAttribute('data-active');
+      this.style.filter = 'none';
+      
+      // Switch language based on clicked icon
+      const lang = this.getAttribute('alt') === 'English' ? 'en' : 'el';
+      switchLanguage(lang);
+    });
+  });
+  
+  // Change icons to black after about section
+  window.addEventListener('scroll', function() {
+    if (aboutSection) {
+      const aboutBottom = aboutSection.offsetTop + aboutSection.offsetHeight;
+      
+      if (window.scrollY > aboutBottom) {
+        langIcons.forEach(icon => {
+          if (!icon.classList.contains('active')) {
+            icon.classList.add('black');
+            icon.style.filter = 'brightness(0) contrast(3)';
+          }
+        });
+      } else {
+        langIcons.forEach(icon => {
+          icon.classList.remove('black');
+          if (!icon.classList.contains('active')) {
+            icon.style.filter = 'brightness(0) invert(1) contrast(3)';
+          }
+        });
+      }
+    }
+  });
+});
