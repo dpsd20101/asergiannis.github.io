@@ -771,7 +771,7 @@ body.menu-open {
   /* Glassmorphism background: semi-transparent wash + blurred backdrop */
   background:
     linear-gradient(rgba(28, 28, 28, 0.4), rgba(28, 28, 28, 0.6)),
-    url('assets/img/bg-masthead.jpg');
+    url('assets/img/bg-masthead.webp');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -1054,7 +1054,7 @@ body.menu-open {
 /* Portfolio Section Styles */
 .portfolio-section {
   min-height: 100vh;
-  background: #f5f5f5 url('assets/img/portfoliobg.png') no-repeat center center;
+  background: #f5f5f5 url('assets/img/portfoliobg.webp') no-repeat center center;
   background-size: cover;
   padding: 140px 24px 80px 24px;
   /* Increased top padding to 140px to clear the drips */

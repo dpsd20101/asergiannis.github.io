@@ -379,35 +379,35 @@ if (aboutMeCarousel && aboutMeCarouselRegion && aboutDescriptionP) {
           // Decide which pair should be shown based on the active card
           const pairByKey = {
             'UI/UX Focus': {
-              src1: 'assets/Figma-logo.svg.png',
+              src1: 'assets/Figma-logo.svg.webp',
               alt1: 'Figma',
-              src2: 'assets/android_logo_PNG32.png',
+              src2: 'assets/android_logo_PNG32.webp',
               alt2: 'Android / Android Studio'
             },
             'Visual Arts': {
-              src1: 'assets/photoshop-logo-png.png',
+              src1: 'assets/photoshop-logo-png.webp',
               alt1: 'Adobe Photoshop',
-              src2: 'assets/png-transparent-adobe-illustrator-macos-bigsur-icon-thumbnail.png',
+              src2: 'assets/png-transparent-adobe-illustrator-macos-bigsur-icon-thumbnail.webp',
               alt2: 'Adobe Illustrator'
             },
             'Tech & Tools': {
-              src1: 'assets/Sql_data_base_with_logo.png',
+              src1: 'assets/Sql_data_base_with_logo.webp',
               alt1: 'SQL Database',
-              src2: 'assets/Firebase-Logo.png',
+              src2: 'assets/Firebase-Logo.webp',
               alt2: 'Firebase'
             },
             'Creative Ideas': {
-              src1: 'assets/blender-logo.png',
+              src1: 'assets/blender-logo.webp',
               alt1: 'Blender',
-              src2: 'assets/ptc-creo-elements-software.png',
+              src2: 'assets/ptc-creo-elements-software.webp',
               alt2: 'Creo'
             },
             'Web Design': {
-              src1: 'assets/js-logo.png',
+              src1: 'assets/js-logo.webp',
               alt1: 'JavaScript',
-              src2: 'assets/HTML5_logo_and_wordmark.svg.png',
+              src2: 'assets/HTML5_logo_and_wordmark.svg.webp',
               alt2: 'HTML5',
-              src3: 'assets/css-logo.png',
+              src3: 'assets/css-logo.webp',
               alt3: 'CSS'
             }
           };
@@ -796,15 +796,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Placeholder Project Data (ensure this matches your intended structure) ---
   const portfolioProjectsData = [
     {
-      title: "Project Alpha", shortDescription: "Brief for card Alpha.", mainImage: "assets/img/Web_Design_1.png",
+      title: "Project Alpha", shortDescription: "Brief for card Alpha.", mainImage: "assets/img/Web_Design_1.webp",
       modalHeader: "Web Design",
       modalHeaderEl: "Σχεδιασμός Ιστοσελίδων",
       imageContainerClass: "web-screenshot-frame",
       modalSliderImages: [
-        "assets/img/Web_Design_1.png",
-        "assets/img/Web_Design_2.png",
-        "assets/img/Web_Design_3.png",
-        "assets/img/Web_Design_4.png"
+        "assets/img/Web_Design_1.webp",
+        "assets/img/Web_Design_2.webp",
+        "assets/img/Web_Design_3.webp",
+        "assets/img/Web_Design_4.webp"
       ],
       detailedContentPages: [
         "<h3>I developed a university assignment website focused on clear structure, usability, and functional design.</h3>",
@@ -818,15 +818,15 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     {
-      title: "Project Beta", shortDescription: "Brief for card Beta.", mainImage: "assets/img/App_Design_2.png",
+      title: "Project Beta", shortDescription: "Brief for card Beta.", mainImage: "assets/img/App_Design_2.webp",
       modalHeader: "App Design",
       modalHeaderEl: "Σχεδιασμός Εφαρμογών",
       imageClass: "app-screenshot",
       modalSliderImages: [
-        "assets/img/CarInCommon-2.png",
-        "assets/img/CarInCommon-1 .png",
-        "assets/img/App-Design_1.png",
-        "assets/img/App_Design_2.png"
+        "assets/img/CarInCommon-2.webp",
+        "assets/img/CarInCommon-1.webp",
+        "assets/img/App-Design_1.webp",
+        "assets/img/App_Design_2.webp"
       ],
       detailedContentPages: [
         "<h3>I have designed and developed university app projects, including a parking app, a friend finder app, and a shared car platform that helps groups manage vehicle usage, maintenance needs, and related services.</h3>",
@@ -840,13 +840,13 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     {
-      title: "Project Gamma", shortDescription: "Brief for card Gamma.", mainImage: "assets/img/MOCKUP1.jpg",
+      title: "Project Gamma", shortDescription: "Brief for card Gamma.", mainImage: "assets/img/MOCKUP1.webp",
       modalHeader: "Graphic Design",
       modalHeaderEl: "Γραφιστικός Σχεδιασμός",
       modalSliderImages: [
-        "assets/img/MOCKUP1.jpg",
-        "assets/img/MOCKUP2-b.jpg",
-        "assets/img/products.png"
+        "assets/img/MOCKUP1.webp",
+        "assets/img/MOCKUP2-b.webp",
+        "assets/img/products.webp"
       ],
       detailedContentPages: [
         "<h3>I create visual work that transforms ideas into branding and design solutions that support both identity and business presence.</h3>",
@@ -860,15 +860,15 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     {
-      title: "Project Delta", shortDescription: "Brief for card Delta.", mainImage: "assets/img/Emorph (1).jpg",
+      title: "Project Delta", shortDescription: "Brief for card Delta.", mainImage: "assets/img/Emorph-1.webp",
       modalHeader: "Product Design",
       modalHeaderEl: "Σχεδιασμός Προϊόντων",
       imageContainerClass: "web-screenshot-frame",
       modalSliderImages: [
-        "assets/img/Emorph (1).jpg",
-        "assets/img/Emorph (2).jpg",
-        "assets/img/Emorph (3).jpg",
-        "assets/img/emorph.png"
+        "assets/img/Emorph-1.webp",
+        "assets/img/Emorph-2.webp",
+        "assets/img/Emorph-3.webp",
+        "assets/img/emorph.webp"
       ],
       detailedContentPages: [
         "<h3>I have worked on a range of projects that combined mechanical thinking with the design thinking process to bring products from early ideas to developed concepts.</h3>",
