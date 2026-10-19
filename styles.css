@@ -596,7 +596,6 @@ body.menu-open {
     align-items: center !important;
     padding: 16px !important;
     box-sizing: border-box !important;
-    border: 2px solid yellow !important;
     visibility: visible !important;
     opacity: 1 !important;
     transform: translate3d(0, 0, 0) !important;
